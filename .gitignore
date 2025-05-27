@@ -27,7 +27,7 @@ ENV/
 .env
 
 # Result
-result/
+results/
 output/
 
 # IDE

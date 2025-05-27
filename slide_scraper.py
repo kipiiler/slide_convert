@@ -86,7 +86,7 @@ class SlideScraper:
             return links
 
         # filter links by keyword for name
-        return [link for link in links if keyword in link['name']]
+        return [link for link in links if keyword in link['name'] and "inked" not in link['name']]
             
 
 if __name__ == "__main__":
@@ -94,5 +94,3 @@ if __name__ == "__main__":
     course_url = "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/"
     scraper = SlideScraper(course_url)
     links = scraper.get_links("slides")
-    print(links)
-
