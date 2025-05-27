@@ -291,4 +291,4 @@ if __name__ == "__main__":
     tracked_requests = client.get_tracked_requests()
     print("\nTracked Requests:")
     for req in tracked_requests:
-        print(f"- {req['name']}: {req['state']}") 
+        print(req)
