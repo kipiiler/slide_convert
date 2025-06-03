@@ -1,6 +1,6 @@
 # Slide Converter
 
-A Python tool for automatically scraping course slides and converting them to processed formats using AI-powered OCR, with intelligent image captioning for accessibility.
+A Python tool for automatically scraping course slides and converting them to markdown formats using AI-powered OCR, with intelligent image captioning for accessibility. Built originally for [CSE484](https://courses.cs.washington.edu/courses/cse484/25wi/)
 
 ## ✨ Features
 
