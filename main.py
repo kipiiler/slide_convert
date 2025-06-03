@@ -2,6 +2,7 @@ import os
 import json
 import argparse
 import sys
+import shutil
 from urllib.parse import urlparse
 from mineru_client import MinerUClient
 from slide_scraper import SlideScraper
@@ -14,6 +15,158 @@ def save_state(client: MinerUClient, results_file: str = 'results/result.json'):
     with open(results_file, 'w') as f:
         json.dump(tracked_requests, f, indent=4)
     print(f"Results saved to {results_file}")
+
+def list_cached_files(client: MinerUClient):
+    """List all cached/processed files from results"""
+    tracked_requests = client.get_tracked_requests()
+    
+    if not tracked_requests:
+        print("No processed files found in cache.")
+        return []
+    
+    print("\n=== Cached Files ===")
+    print(f"{'#':<4} {'Name':<40} {'State':<12} {'Size':<10} {'Created'}")
+    print("-" * 80)
+    
+    for i, req in enumerate(tracked_requests, 1):
+        # Get output directory size if it exists
+        output_path = os.path.join('output', req['name'])
+        size_str = "N/A"
+        if os.path.exists(output_path):
+            size = get_directory_size(output_path)
+            size_str = format_file_size(size)
+        
+        # Format creation time
+        import time
+        created_time = time.strftime('%Y-%m-%d %H:%M', time.localtime(req['created_at']))
+        
+        print(f"{i:<4} {req['name'][:39]:<40} {req['state']:<12} {size_str:<10} {created_time}")
+    
+    return tracked_requests
+
+def get_directory_size(path):
+    """Get the total size of a directory in bytes"""
+    total = 0
+    try:
+        for dirpath, dirnames, filenames in os.walk(path):
+            for f in filenames:
+                fp = os.path.join(dirpath, f)
+                if os.path.exists(fp):
+                    total += os.path.getsize(fp)
+    except (OSError, IOError):
+        pass
+    return total
+
+def format_file_size(size_bytes):
+    """Format file size in human readable format"""
+    if size_bytes == 0:
+        return "0B"
+    size_names = ["B", "KB", "MB", "GB"]
+    import math
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return f"{s}{size_names[i]}"
+
+def delete_cached_file(client: MinerUClient, file_name: str, results_file: str):
+    """Delete a specific cached file from results and output directory"""
+    try:
+        # Remove from client's internal tracker
+        if file_name in client.requests_tracker:
+            del client.requests_tracker[file_name]
+            print(f"Removed '{file_name}' from results cache")
+        
+        # Save updated state
+        save_state(client, results_file)
+        
+        # Remove output directory
+        output_path = os.path.join('output', file_name)
+        if os.path.exists(output_path):
+            if os.path.isdir(output_path):
+                shutil.rmtree(output_path)
+                print(f"Deleted output directory: {output_path}")
+            else:
+                os.remove(output_path)
+                print(f"Deleted output file: {output_path}")
+        else:
+            print(f"Output directory not found: {output_path}")
+        
+        return True
+    except Exception as e:
+        print(f"Error deleting cached file '{file_name}': {str(e)}")
+        return False
+
+def interactive_cache_management(client: MinerUClient, results_file: str):
+    """Interactive cache management interface"""
+    while True:
+        tracked_requests = list_cached_files(client)
+        
+        if not tracked_requests:
+            return
+        
+        print(f"\n=== Cache Management ===")
+        print("Commands:")
+        print("  <number>      - Delete specific file by number")
+        print("  <start>-<end> - Delete range of files (e.g., 1-3)")
+        print("  all           - Delete all cached files")
+        print("  done/quit     - Exit cache management")
+        print("  refresh       - Refresh the list")
+        
+        choice = input("\nEnter your choice: ").strip().lower()
+        
+        if choice in ['done', 'quit', 'exit']:
+            break
+        elif choice == 'refresh':
+            continue
+        elif choice == 'all':
+            confirm = input(f"Are you sure you want to delete ALL {len(tracked_requests)} cached files? (yes/no): ")
+            if confirm.lower() == 'yes':
+                for req in tracked_requests:
+                    delete_cached_file(client, req['name'], results_file)
+                print("All cached files deleted.")
+            continue
+        elif '-' in choice:
+            # Handle range deletion
+            try:
+                start, end = map(int, choice.split('-'))
+                if 1 <= start <= len(tracked_requests) and 1 <= end <= len(tracked_requests) and start <= end:
+                    files_to_delete = tracked_requests[start-1:end]
+                    confirm = input(f"Delete {len(files_to_delete)} files ({start}-{end})? (yes/no): ")
+                    if confirm.lower() == 'yes':
+                        for req in files_to_delete:
+                            delete_cached_file(client, req['name'], results_file)
+                else:
+                    print("Invalid range. Please use format like '1-3'")
+            except ValueError:
+                print("Invalid range format. Please use format like '1-3'")
+            continue
+        else:
+            # Handle single file deletion
+            try:
+                index = int(choice) - 1
+                if 0 <= index < len(tracked_requests):
+                    req = tracked_requests[index]
+                    confirm = input(f"Delete '{req['name']}'? (yes/no): ")
+                    if confirm.lower() == 'yes':
+                        delete_cached_file(client, req['name'], results_file)
+                else:
+                    print(f"Invalid number. Please enter 1-{len(tracked_requests)}")
+            except ValueError:
+                print("Invalid input. Please enter a number, range, or command.")
+
+def clean_all_cache(client: MinerUClient, results_file: str):
+    """Clean all cached files"""
+    tracked_requests = client.get_tracked_requests()
+    
+    if not tracked_requests:
+        print("No cached files to clean.")
+        return
+    
+    print(f"Found {len(tracked_requests)} cached files")
+    for req in tracked_requests:
+        delete_cached_file(client, req['name'], results_file)
+    
+    print("All cache cleaned.")
 
 def process_slides(client: MinerUClient, slide_links: list):
     """Process slides and handle errors"""
@@ -146,6 +299,9 @@ Examples:
   python main.py --interactive
   python main.py --pdf-interactive
   python main.py --download-only
+  python main.py --cache-list
+  python main.py --cache-interactive
+  python main.py --cache-clean
         """
     )
     
@@ -204,6 +360,25 @@ Examples:
         help='Skip processing new slides, only download existing results'
     )
     
+    # Cache management arguments
+    parser.add_argument(
+        '--cache-list',
+        action='store_true',
+        help='List all cached/processed files'
+    )
+    
+    parser.add_argument(
+        '--cache-interactive',
+        action='store_true',
+        help='Interactive cache management interface'
+    )
+    
+    parser.add_argument(
+        '--cache-clean',
+        action='store_true',
+        help='Clean all cached files (removes from results and output)'
+    )
+    
     return parser.parse_args()
 
 def main():
@@ -213,6 +388,23 @@ def main():
         
         # Initialize the MinerU client
         client = MinerUClient(results_file=args.results_file)
+        
+        # Handle cache management
+        if args.cache_list:
+            list_cached_files(client)
+            return
+        
+        if args.cache_interactive:
+            interactive_cache_management(client, args.results_file)
+            return
+        
+        if args.cache_clean:
+            confirm = input("Are you sure you want to clean ALL cached files? This will delete results and output directories. (yes/no): ")
+            if confirm.lower() == 'yes':
+                clean_all_cache(client, args.results_file)
+            else:
+                print("Cache cleaning cancelled.")
+            return
         
         # If download-only mode, skip to downloading
         if args.download_only or args.skip_processing:

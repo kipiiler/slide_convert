@@ -8,6 +8,7 @@ A Python-based tool for automatically scraping course slides from university web
 - 📄 **PDF Processing**: Converts PDFs using MinerU API with OCR, formula, and table extraction
 - 📋 **Single PDF Processing**: Process individual PDF files directly from URL
 - 🤖 **AI-Powered Image Captioning**: Automatically generates accessible alt-text for images in markdown using LLM
+- 🗂️ **Cache Management**: List, view, and clean processed files with interactive interface
 - 💾 **State Management**: Tracks processing status and resumes from where it left off
 - 📦 **Batch Processing**: Handles multiple slides efficiently with error recovery
 - 🎯 **Flexible Filtering**: Filter slides by keywords to process only specific content
@@ -127,6 +128,77 @@ python main.py --url "https://example.com/course/" --results-file "my_results.js
 python main.py --skip-processing
 ```
 
+## Cache Management
+
+The tool includes comprehensive cache management features to help you view and clean up processed files.
+
+### List Cached Files
+
+View all processed files with details:
+```bash
+python main.py --cache-list
+```
+
+This displays:
+- File numbers for easy reference
+- File names (truncated if long)
+- Processing state (done, failed, pending)
+- Output directory size
+- Creation timestamp
+
+Example output:
+```
+=== Cached Files ===
+#    Name                                     State        Size       Created
+--------------------------------------------------------------------------------
+1    lecture01-intro.pdf                      done         2.5MB      2024-01-15 14:30
+2    lecture02-crypto.pdf                     done         1.8MB      2024-01-15 15:45
+3    lecture03-auth.pdf                       failed       N/A        2024-01-15 16:20
+```
+
+### Interactive Cache Management
+
+Launch an interactive interface to selectively delete files:
+```bash
+python main.py --cache-interactive
+```
+
+**Interactive Commands:**
+- `<number>` - Delete specific file by number (e.g., `3`)
+- `<start>-<end>` - Delete range of files (e.g., `1-5`)
+- `all` - Delete all cached files
+- `refresh` - Refresh the file list
+- `done/quit` - Exit cache management
+
+**Example Session:**
+```
+=== Cache Management ===
+Commands:
+  <number>      - Delete specific file by number
+  <start>-<end> - Delete range of files (e.g., 1-3)
+  all           - Delete all cached files
+  done/quit     - Exit cache management
+  refresh       - Refresh the list
+
+Enter your choice: 2
+Delete 'lecture02-crypto.pdf'? (yes/no): yes
+Removed 'lecture02-crypto.pdf' from results cache
+Deleted output directory: output/lecture02-crypto.pdf
+```
+
+### Clean All Cache
+
+Remove all cached files at once:
+```bash
+python main.py --cache-clean
+```
+
+**Safety Features:**
+- Confirmation prompt before deletion
+- Removes entries from `results.json`
+- Deletes corresponding output directories
+- Shows progress for each deletion
+
 ### Command Line Arguments
 
 | Argument | Short | Description |
@@ -140,6 +212,9 @@ python main.py --skip-processing
 | `--results-file` | `-r` | Path to results file (default: results/result.json) |
 | `--download-only` | `-d` | Only download results for previously processed slides |
 | `--skip-processing` | | Skip processing new slides, only download existing results |
+| `--cache-list` | | List all cached/processed files |
+| `--cache-interactive` | | Interactive cache management interface |
+| `--cache-clean` | | Clean all cached files (removes from results and output) |
 | `--help` | `-h` | Show help message and exit |
 
 ## Examples
@@ -170,7 +245,19 @@ Then enter:
 - PDF URL: `https://example.com/lecture01.pdf`
 - Custom name: `Security Fundamentals` (or press Enter to auto-generate)
 
-### Example 5: Resume Previous Session
+### Example 5: Manage Cache
+```bash
+# List all cached files
+python main.py --cache-list
+
+# Interactive cache management
+python main.py --cache-interactive
+
+# Clean all cache
+python main.py --cache-clean
+```
+
+### Example 6: Resume Previous Session
 ```bash
 python main.py --download-only
 ```
@@ -310,6 +397,19 @@ The tool automatically configures PDF processing with:
 Processed results are saved in:
 - `results/result.json`: Processing status and metadata
 - `output/`: Extracted content organized by slide name
+
+Each processed file creates a directory in `output/` with:
+- Extracted markdown files
+- Image files
+- Processing metadata
+
+### Cache Management
+
+The cache system tracks:
+- **Processing State**: Current status of each file
+- **File Metadata**: Creation time, file names, URLs
+- **Output Directories**: Automatically linked to results
+- **Size Information**: Storage usage per processed file
 
 ### Processing States
 
