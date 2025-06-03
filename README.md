@@ -1,497 +1,178 @@
 # Slide Converter
 
-A Python-based tool for automatically scraping course slides from university websites and converting them into processed formats using the MinerU API. The tool can extract text, formulas, and tables from PDF slides with OCR capabilities.
+A Python tool for automatically scraping course slides and converting them to processed formats using AI-powered OCR, with intelligent image captioning for accessibility.
 
-## Features
+## ✨ Features
 
-- 🔍 **Automatic Slide Scraping**: Scrapes PDF slides from course schedule pages
-- 📄 **PDF Processing**: Converts PDFs using MinerU API with OCR, formula, and table extraction
-- 📋 **Single PDF Processing**: Process individual PDF files directly from URL
-- 🤖 **AI-Powered Image Captioning**: Automatically generates accessible alt-text for images in markdown using LLM
-- 🗂️ **Cache Management**: List, view, and clean processed files with interactive interface
-- 💾 **State Management**: Tracks processing status and resumes from where it left off
-- 📦 **Batch Processing**: Handles multiple slides efficiently with error recovery
-- 🎯 **Flexible Filtering**: Filter slides by keywords to process only specific content
-- 📊 **Progress Tracking**: Real-time status updates and comprehensive logging
-- 🔄 **Resume Capability**: Continue processing from previous sessions
+- 🔍 **Automatic Slide Scraping** - Extract slides from course websites
+- 📄 **AI-Powered PDF Processing** - OCR, formula detection, and table extraction
+- 📋 **Single PDF Processing** - Process individual files directly
+- 🤖 **Image Captioning** - AI-generated alt-text for accessibility
+- 🗂️ **Cache Management** - Organize and clean processed files
+- 💾 **State Management** - Resume interrupted processing
 
-## Project Structure
+## 🚀 Quick Start
 
-```
-slide_convert/
-├── main.py                 # Main application entry point
-├── slide_scraper.py        # Web scraping functionality for course slides
-├── mineru_client.py        # MinerU API client for PDF processing
-├── llm_client.py          # LLM integration for image captioning and analysis
-├── zipper.py              # Download and extraction utilities
-├── requirements.txt       # Python dependencies
-├── .env                   # Environment variables (create this)
-├── results/               # Processing results and state files
-├── output/                # Downloaded and extracted content
-└── scripts/               # Additional utility scripts
+### 1. Installation
+
+```bash
+# Clone and install
+git clone <repository-url>
+cd slide_convert
+pip install -r requirements.txt
+
+# Create environment file
+echo "TOKEN=your_mineru_api_token" > .env
 ```
 
-## Installation
+### 2. Basic Usage
 
-### Prerequisites
-
-- Python 3.7 or higher
-- MinerU API token (get one from [mineru.net](https://mineru.net))
-- Google API key for Gemini (optional, for image captioning)
-
-### Setup
-
-1. **Clone the repository** (or download the files):
-   ```bash
-   git clone <repository-url>
-   cd slide_convert
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Create environment file**:
-   Create a `.env` file in the project root:
-   ```env
-   TOKEN=your_mineru_api_token_here
-   GOOGLE_API_KEY=your_google_api_key_here
-   ```
-
-4. **Verify installation**:
-   ```bash
-   python main.py --help
-   ```
-
-## Usage
-
-The tool offers multiple ways to run, from simple interactive mode to advanced command-line usage.
-
-### Interactive Mode (Recommended for Beginners)
-
-Run the tool interactively to be prompted for input:
-
+**Interactive Mode (Recommended):**
 ```bash
 python main.py --interactive
 ```
 
-You'll be prompted to enter:
-- Course schedule URL
-- Keyword filter (optional)
-
-### Command Line Usage
-
-#### Basic Usage
-
-Process all slides from a course:
+**Process Course Slides:**
 ```bash
 python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/"
 ```
 
-Process only slides containing "lecture":
+**Process Single PDF:**
 ```bash
-python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/" --keyword "lecture"
+python main.py --pdf-url "https://example.com/lecture.pdf"
 ```
 
-#### Single PDF Processing
+### 3. Manage Results
 
-Process a single PDF file directly:
 ```bash
-python main.py --pdf-url "https://example.com/lecture01.pdf"
-```
-
-Process a single PDF with custom name:
-```bash
-python main.py --pdf-url "https://example.com/lecture01.pdf" --pdf-name "Introduction to Security"
-```
-
-Interactive mode for single PDF:
-```bash
-python main.py --pdf-interactive
-```
-
-#### Advanced Options
-
-**Download only existing results** (no new processing):
-```bash
-python main.py --download-only
-```
-
-**Use custom results file**:
-```bash
-python main.py --url "https://example.com/course/" --results-file "my_results.json"
-```
-
-**Skip processing, only download**:
-```bash
-python main.py --skip-processing
-```
-
-## Cache Management
-
-The tool includes comprehensive cache management features to help you view and clean up processed files.
-
-### List Cached Files
-
-View all processed files with details:
-```bash
+# List processed files
 python main.py --cache-list
-```
 
-This displays:
-- File numbers for easy reference
-- File names (truncated if long)
-- Processing state (done, failed, pending)
-- Output directory size
-- Creation timestamp
+# Download results
+python main.py --download-only
 
-Example output:
-```
-=== Cached Files ===
-#    Name                                     State        Size       Created
---------------------------------------------------------------------------------
-1    lecture01-intro.pdf                      done         2.5MB      2024-01-15 14:30
-2    lecture02-crypto.pdf                     done         1.8MB      2024-01-15 15:45
-3    lecture03-auth.pdf                       failed       N/A        2024-01-15 16:20
-```
-
-### Interactive Cache Management
-
-Launch an interactive interface to selectively delete files:
-```bash
+# Clean up cache
 python main.py --cache-interactive
 ```
 
-**Interactive Commands:**
-- `<number>` - Delete specific file by number (e.g., `3`)
-- `<start>-<end>` - Delete range of files (e.g., `1-5`)
-- `all` - Delete all cached files
-- `refresh` - Refresh the file list
-- `done/quit` - Exit cache management
+## 📖 Documentation
 
-**Example Session:**
-```
-=== Cache Management ===
-Commands:
-  <number>      - Delete specific file by number
-  <start>-<end> - Delete range of files (e.g., 1-3)
-  all           - Delete all cached files
-  done/quit     - Exit cache management
-  refresh       - Refresh the list
+| Guide | Description |
+|-------|-------------|
+| [Installation Guide](docs/installation.md) | Complete setup instructions and troubleshooting |
+| [Usage Guide](docs/usage.md) | Detailed usage patterns and workflows |
+| [Cache Management](docs/cache-management.md) | File management and cleanup |
+| [Image Captioning](docs/image-captioning.md) | AI-powered accessibility features |
+| [API Reference](docs/api-reference.md) | Complete command-line reference |
 
-Enter your choice: 2
-Delete 'lecture02-crypto.pdf'? (yes/no): yes
-Removed 'lecture02-crypto.pdf' from results cache
-Deleted output directory: output/lecture02-crypto.pdf
-```
+## ⚡ Examples
 
-### Clean All Cache
-
-Remove all cached files at once:
+**Course Processing:**
 ```bash
-python main.py --cache-clean
-```
-
-**Safety Features:**
-- Confirmation prompt before deletion
-- Removes entries from `results.json`
-- Deletes corresponding output directories
-- Shows progress for each deletion
-
-### Command Line Arguments
-
-| Argument | Short | Description |
-|----------|-------|-------------|
-| `--url` | `-u` | Course schedule URL to scrape slides from |
-| `--pdf-url` | | Direct PDF URL to process (single file mode) |
-| `--pdf-name` | | Custom name for the PDF when using --pdf-url |
-| `--keyword` | `-k` | Keyword to filter slides (e.g., "slides", "lecture") |
-| `--interactive` | `-i` | Run in interactive mode (prompts for course URL input) |
-| `--pdf-interactive` | | Run in interactive mode for single PDF processing |
-| `--results-file` | `-r` | Path to results file (default: results/result.json) |
-| `--download-only` | `-d` | Only download results for previously processed slides |
-| `--skip-processing` | | Skip processing new slides, only download existing results |
-| `--cache-list` | | List all cached/processed files |
-| `--cache-interactive` | | Interactive cache management interface |
-| `--cache-clean` | | Clean all cached files (removes from results and output) |
-| `--help` | `-h` | Show help message and exit |
-
-## Examples
-
-### Example 1: Process CSE Course Slides
-```bash
-python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/" --keyword "slides"
-```
-
-### Example 2: Interactive Processing
-```bash
+# Interactive setup
 python main.py --interactive
-```
-Then enter:
-- URL: `https://courses.cs.washington.edu/courses/cse484/25sp/schedule/`
-- Keyword: `slides` (or press Enter for all)
 
-### Example 3: Process Single PDF
-```bash
-python main.py --pdf-url "https://cs.stanford.edu/~dabo/papers/sessionfixation.pdf"
+# Command line with filtering
+python main.py --url "https://university.edu/schedule/" --keyword "lecture"
 ```
 
-### Example 4: Interactive Single PDF Processing
+**Single Documents:**
 ```bash
+# Direct PDF processing
+python main.py --pdf-url "https://arxiv.org/pdf/paper.pdf" --pdf-name "Research Paper"
+
+# Interactive PDF mode
 python main.py --pdf-interactive
 ```
-Then enter:
-- PDF URL: `https://example.com/lecture01.pdf`
-- Custom name: `Security Fundamentals` (or press Enter to auto-generate)
 
-### Example 5: Manage Cache
+**Maintenance:**
 ```bash
-# List all cached files
+# View cache
 python main.py --cache-list
 
-# Interactive cache management
+# Interactive cleanup
 python main.py --cache-interactive
-
-# Clean all cache
-python main.py --cache-clean
 ```
 
-### Example 6: Resume Previous Session
-```bash
-python main.py --download-only
-```
+## 🔧 Configuration
 
-## AI-Powered Image Captioning
-
-The tool includes advanced LLM integration for automatically generating accessible alt-text for images in markdown files. This feature uses Google's Gemini AI to analyze images from lecture slides and create meaningful descriptions.
-
-### Features
-
-- **Automatic Alt-Text Generation**: Analyzes images and generates descriptive captions
-- **Accessibility Focused**: Creates captions specifically designed for screen readers
-- **Batch Processing**: Processes all images in extracted slide directories
-- **Rate Limiting**: Built-in rate limiting to respect API quotas
-- **Smart Skipping**: Only processes images without existing alt-text
-
-### Setup for Image Captioning
-
-1. **Get Google API Key**:
-   - Visit the [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Create a new API key
-   - Add it to your `.env` file as `GOOGLE_API_KEY`
-
-2. **Configure Environment**:
-   ```env
-   GOOGLE_API_KEY=your_google_api_key_here
-   ```
-
-### Usage
-
-#### Automatic Processing
-After running the main slide conversion, you can automatically caption all images:
-
-```bash
-python llm_client.py
-```
-
-This will:
-- Process all directories in the `output/` folder
-- Analyze images without alt-text
-- Generate accessibility-focused captions
-- Create new markdown files with `captioned.md` suffix
-
-#### Manual Processing
-You can also use the image captioning as a standalone tool:
-
-```python
-from llm_client import GeminiClient, ImageCaptionAgent
-
-# Initialize the LLM client
-llm_client = GeminiClient()
-agent = ImageCaptionAgent(llm_client)
-
-# Process a specific directory
-agent.process_directory("output/lecture01-slides.pdf")
-```
-
-### Image Captioning Configuration
-
-#### LLM Settings
-- **Model**: Uses `gemini-2.0-flash-lite` by default
-- **Rate Limit**: 30 requests per minute (configurable)
-- **Prompt**: Optimized for computer security lecture content
-
-#### Customizing the Caption Prompt
-You can modify the prompt in `llm_client.py`:
-
-```python
-self.image_prompt = """
-Your custom prompt for generating image captions.
-Focus on accessibility and educational content.
-"""
-```
-
-### Example Output
-
-**Before (no alt-text):**
-```markdown
-![](images/diagram-01.png)
-```
-
-**After (with AI-generated caption):**
-```markdown
-![Network security architecture diagram showing firewall placement between internal and external networks](images/diagram-01.png)
-```
-
-### Advanced Features
-
-#### Rate Limiting
-The system automatically handles API rate limits:
-- Tracks requests per minute
-- Automatically waits when limits are reached
-- Provides progress feedback
-
-#### Error Handling
-- Gracefully handles missing images
-- Continues processing if individual images fail
-- Provides detailed error messages
-
-#### Batch Processing
-Process multiple slide sets efficiently:
-```python
-# Process all output directories
-for directory in os.listdir("output/"):
-    if os.path.isdir(f"output/{directory}"):
-        agent.process_directory(f"output/{directory}")
-```
-
-## Configuration
-
-### Environment Variables
-
-Create a `.env` file with the following variables:
+Create a `.env` file with your API tokens:
 
 ```env
 # Required: MinerU API token
-TOKEN=your_mineru_api_token_here
+TOKEN=your_mineru_token_here
 
 # Optional: Google API key for image captioning
 GOOGLE_API_KEY=your_google_api_key_here
-
-# Optional: Additional configuration can be added here
 ```
 
-### Processing Options
+**Get API Keys:**
+- **MinerU**: [mineru.net](https://mineru.net) - PDF processing
+- **Google AI**: [Google AI Studio](https://makersuite.google.com/app/apikey) - Image captioning
 
-The tool automatically configures PDF processing with:
-- **OCR**: Enabled for text extraction from images
-- **Formula Detection**: Enabled for mathematical content
-- **Table Extraction**: Enabled for structured data
-- **Language**: English (configurable in code)
+## 📁 Output Structure
 
-## Output
+```
+output/
+├── lecture01-slides.pdf/
+│   ├── full.md              # Extracted content
+│   ├── captioned.md         # With AI alt-text
+│   └── images/              # Extracted images
+└── results/
+    └── result.json          # Processing state
+```
 
-### Results Structure
+## 🔗 Key Features
 
-Processed results are saved in:
-- `results/result.json`: Processing status and metadata
-- `output/`: Extracted content organized by slide name
+### Course Scraping
+- Automatically finds PDF links on course pages
+- Keyword filtering for specific content
+- Batch processing with error recovery
 
-Each processed file creates a directory in `output/` with:
-- Extracted markdown files
-- Image files
-- Processing metadata
+### PDF Processing
+- OCR for scanned documents
+- Formula and table extraction
+- Image extraction with metadata
+
+### AI Image Captioning
+- Accessibility-focused descriptions
+- Educational content optimization
+- Batch processing with rate limiting
 
 ### Cache Management
+- Interactive file selection
+- Storage usage tracking
+- Selective cleanup options
 
-The cache system tracks:
-- **Processing State**: Current status of each file
-- **File Metadata**: Creation time, file names, URLs
-- **Output Directories**: Automatically linked to results
-- **Size Information**: Storage usage per processed file
+## 🛠️ Requirements
 
-### Processing States
+- Python 3.7+
+- MinerU API token ([Get one here](https://mineru.net))
+- Google API key (optional, for image captioning)
 
-- **pending**: Task created, waiting to start
-- **running**: Currently being processed
-- **converting**: Converting to final format
-- **done**: Successfully completed
-- **failed**: Processing failed with error
+## 📋 Command Reference
 
-## Troubleshooting
+| Command | Purpose |
+|---------|---------|
+| `--interactive` | Interactive course processing |
+| `--pdf-interactive` | Interactive single PDF processing |
+| `--cache-list` | List all processed files |
+| `--cache-interactive` | Interactive cache management |
+| `--download-only` | Download existing results |
+| `--help` | Show all options |
 
-### Common Issues
+## 🤝 Getting Help
 
-1. **"TOKEN environment variable not found"**
-   - Create a `.env` file with your MinerU API token
-   - Ensure the file is in the project root directory
+1. **Quick Issues**: Check the [Installation Guide](docs/installation.md#troubleshooting-installation)
+2. **Usage Questions**: See the [Usage Guide](docs/usage.md)
+3. **Cache Problems**: Read [Cache Management](docs/cache-management.md)
+4. **AI Features**: Check [Image Captioning Guide](docs/image-captioning.md)
+5. **Complete Reference**: Use the [API Reference](docs/api-reference.md)
 
-2. **"GOOGLE_API_KEY not found in .env file"**
-   - Add your Google API key to the `.env` file
-   - Ensure you have access to the Gemini API
-   - Check that your API key has proper permissions
+## 📄 License
 
-3. **"No slides found matching the criteria"**
-   - Check if the URL is correct and accessible
-   - Try without a keyword filter first
-   - Verify the website structure hasn't changed
+This project is provided as-is for educational purposes. Please comply with the terms of service of any websites you scrape and APIs you use.
 
-4. **Processing fails or times out**
-   - Check your internet connection
-   - Verify your API token is valid and has credits
-   - Use `--download-only` to retrieve partial results
+---
 
-5. **Image captioning fails**
-   - Verify your Google API key is valid
-   - Check that you have Gemini API access
-   - Ensure images exist in the specified paths
-   - Check rate limiting if processing many images
-
-6. **Permission errors on Windows**
-   - Run PowerShell/Command Prompt as Administrator
-   - Check file permissions in the project directory
-
-### Debug Mode
-
-For detailed logging, you can modify the scripts or add print statements to see what's happening during processing.
-
-## Dependencies
-
-- `requests`: HTTP requests for web scraping and API calls
-- `beautifulsoup4`: HTML parsing for slide extraction
-- `python-dotenv`: Environment variable management
-- `google-generativeai`: Google Gemini AI for image analysis
-- `pillow`: Image processing capabilities
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is provided as-is for educational purposes. Make sure to comply with the terms of service of any websites you scrape and APIs you use.
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section above
-2. Review the error messages carefully
-3. Ensure all dependencies are installed correctly
-4. Verify your API credentials are valid
-
-## Changelog
-
-### Current Version
-- Added command-line argument support
-- Implemented interactive mode
-- Added state management and resume capability
-- Improved error handling and recovery
-- Added AI-powered image captioning with Google Gemini
-- Implemented rate limiting for LLM API calls
-- Added accessibility-focused alt-text generation
-- Added comprehensive documentation 
+**Start here:** Run `python main.py --interactive` for guided setup, or check the [Installation Guide](docs/installation.md) for detailed setup instructions. 
