@@ -17,6 +17,8 @@ python main.py [OPTIONS]
 | `--url` | `-u` | string | Course schedule URL to scrape slides from |
 | `--pdf-url` | | string | Direct PDF URL to process (single file mode) |
 | `--pdf-name` | | string | Custom name for the PDF when using --pdf-url |
+| `--local-file` | | string | Path to local PDF file to process |
+| `--local-name` | | string | Custom name for the local file when using --local-file |
 | `--keyword` | `-k` | string | Keyword to filter slides (e.g., "slides", "lecture") |
 
 ### Interactive Modes
@@ -25,6 +27,7 @@ python main.py [OPTIONS]
 |--------|-------|------|-------------|
 | `--interactive` | `-i` | flag | Run in interactive mode (prompts for course URL input) |
 | `--pdf-interactive` | | flag | Run in interactive mode for single PDF processing |
+| `--local-interactive` | | flag | Run in interactive mode for local file processing |
 
 ### State Management
 
@@ -87,6 +90,24 @@ python main.py --pdf-url "https://example.com/doc.pdf" --pdf-name "Chapter 1 Int
 **Interactive PDF processing:**
 ```bash
 python main.py --pdf-interactive
+```
+
+### Local File Processing
+
+**Direct local file processing:**
+```bash
+python main.py --local-file "document.pdf"
+python main.py --local-file "/path/to/local/file.pdf"
+```
+
+**With custom name:**
+```bash
+python main.py --local-file "document.pdf" --local-name "Custom Document Name"
+```
+
+**Interactive local file processing:**
+```bash
+python main.py --local-interactive
 ```
 
 ### State and Cache Management
@@ -158,6 +179,32 @@ Custom name for PDF when using --pdf-url.
 - Used for tracking and output directory naming
 - Automatically adds .pdf extension if missing
 
+### --local-file (Local File Processing)
+
+Path to local PDF file to process.
+
+**Format**: File path (relative or absolute)
+**Optional**: No default
+**Example**: `--local-file "/path/to/local/file.pdf"`
+
+**Behavior**:
+- Processes local PDF file
+- Auto-generates name from file if --local-name not specified
+- Creates task in same results tracking system
+
+### --local-name (Local File Naming)
+
+Custom name for local file when using --local-file.
+
+**Format**: String (automatically gets .pdf extension if missing)
+**Optional**: Auto-generated from file if not specified
+**Example**: `--local-name "Local File Name"`
+
+**Behavior**:
+- Overrides auto-generated name from file
+- Used for tracking and output directory naming
+- Automatically adds .pdf extension if missing
+
 ### --keyword (Filtering)
 
 Filter slides by keyword in the link text or filename.
@@ -204,6 +251,23 @@ Launch interactive mode for single PDF processing.
 === Single PDF Processing Setup ===
 Enter the PDF URL: [user input]
 Enter custom name for the PDF (or press Enter to auto-generate): [user input]
+```
+
+### --local-interactive (Local File Interactive Mode)
+
+Launch interactive mode for local file processing.
+
+**Type**: Flag (no arguments)
+**Behavior**:
+- Prompts for local file path
+- Prompts for optional custom name
+- Same processing as --local-file mode after input
+
+**Interactive Flow**:
+```
+=== Local File Processing Setup ===
+Enter the local file path: [user input]
+Enter custom name for the local file (or press Enter to auto-generate): [user input]
 ```
 
 ### --results-file (State File)

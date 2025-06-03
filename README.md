@@ -7,6 +7,7 @@ A Python tool for automatically scraping course slides and converting them to pr
 - 🔍 **Automatic Slide Scraping** - Extract slides from course websites
 - 📄 **AI-Powered PDF Processing** - OCR, formula detection, and table extraction
 - 📋 **Single PDF Processing** - Process individual files directly
+- 💻 **Local File Processing** - Process PDF files stored on your computer
 - 🤖 **Image Captioning** - AI-generated alt-text for accessibility
 - 🗂️ **Cache Management** - Organize and clean processed files
 - 💾 **State Management** - Resume interrupted processing
@@ -40,6 +41,11 @@ python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/sche
 **Process Single PDF:**
 ```bash
 python main.py --pdf-url "https://example.com/lecture.pdf"
+```
+
+**Process Local File:**
+```bash
+python main.py --local-file "document.pdf" --local-name "My Document"
 ```
 
 ### 3. Manage Results
@@ -83,6 +89,12 @@ python main.py --pdf-url "https://arxiv.org/pdf/paper.pdf" --pdf-name "Research 
 
 # Interactive PDF mode
 python main.py --pdf-interactive
+
+# Local file processing
+python main.py --local-file "document.pdf" --local-name "My Document"
+
+# Interactive local file mode
+python main.py --local-interactive
 ```
 
 **Maintenance:**
@@ -133,6 +145,13 @@ output/
 - OCR for scanned documents
 - Formula and table extraction
 - Image extraction with metadata
+- Supports both URL-based and local file processing
+
+### Local File Processing
+- Process files stored on your computer
+- Secure temporary upload to processing servers
+- No need for public URLs or file sharing
+- Full OCR and content extraction capabilities
 
 ### AI Image Captioning
 - Accessibility-focused descriptions
@@ -156,6 +175,7 @@ output/
 |---------|---------|
 | `--interactive` | Interactive course processing |
 | `--pdf-interactive` | Interactive single PDF processing |
+| `--local-interactive` | Interactive local file processing |
 | `--cache-list` | List all processed files |
 | `--cache-interactive` | Interactive cache management |
 | `--download-only` | Download existing results |

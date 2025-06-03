@@ -1,13 +1,14 @@
 # Usage Guide
 
-This guide covers all the ways to use the Slide Converter tool, from basic course scraping to advanced single PDF processing.
+This guide covers all the ways to use the Slide Converter tool, from basic course scraping to advanced single PDF processing and local file processing.
 
 ## Overview
 
-The Slide Converter offers three main modes of operation:
+The Slide Converter offers four main modes of operation:
 1. **Course Scraping** - Extract slides from course websites
-2. **Single PDF Processing** - Process individual PDF files
-3. **Cache Management** - Manage processed files
+2. **Single PDF Processing** - Process individual PDF files from URLs
+3. **Local File Processing** - Process PDF files stored locally on your computer
+4. **Cache Management** - Manage processed files
 
 ## Course Scraping Mode
 
@@ -92,6 +93,68 @@ The tool automatically handles PDF naming:
 - **Extension handling**: Automatically adds `.pdf` extension if missing
 - **Timestamp fallback**: Uses timestamp if name cannot be extracted
 
+## Local File Processing
+
+Process PDF files stored on your local computer without needing to upload them to external URLs first.
+
+### Direct Local File Processing
+
+Process local PDF files directly:
+
+```bash
+# Basic local file processing
+python main.py --local-file "document.pdf"
+python main.py --local-file "/path/to/research_paper.pdf"
+
+# With custom name
+python main.py --local-file "document.pdf" --local-name "Chapter 1 Introduction"
+```
+
+### Interactive Local File Mode
+
+For manual input and easier file selection:
+
+```bash
+python main.py --local-interactive
+```
+
+**Example Session:**
+```
+=== Local File Processing Setup ===
+Enter the path to the local PDF file: C:\Users\Documents\lecture01.pdf
+Enter custom name for the file (or press Enter to auto-generate): Security Fundamentals
+```
+
+### Local File Benefits
+
+Local file processing offers several advantages:
+- **No public URL required** - Files stay on your machine during initial processing
+- **Privacy** - Sensitive documents don't need to be shared via public URLs
+- **Large files** - Better handling of large files without URL timeout issues
+- **Batch local processing** - Process multiple local files efficiently
+
+### File Path Handling
+
+The tool supports various file path formats:
+- **Relative paths**: `document.pdf`, `papers/research.pdf`
+- **Absolute paths**: `/home/user/docs/file.pdf`, `C:\Users\Documents\file.pdf`
+- **File validation**: Automatically checks if file exists before processing
+
+### Local File Name Management
+
+Similar to PDF URL processing, the tool handles naming automatically:
+- **Auto-generation**: Uses the filename if no custom name provided
+- **Custom names**: Use `--local-name` or interactive input
+- **Extension handling**: Automatically ensures `.pdf` extension
+- **Path extraction**: Extracts just the filename from full paths
+
+### How Local File Processing Works
+
+1. **File Upload**: Securely uploads file to MinerU's processing servers
+2. **Processing**: Uses the same OCR, formula, and table extraction as URL-based processing
+3. **Results**: Downloads processed results back to your local machine
+4. **Cleanup**: Files are automatically removed from servers after processing
+
 ## Advanced Usage Patterns
 
 ### Resume Operations
@@ -132,15 +195,46 @@ python main.py --download-only --results-file "course1.json"
 python main.py --download-only --results-file "course2.json"
 ```
 
+### Local File Operations
+
+Process multiple local files with different configurations:
+
+```bash
+# Process different types of documents
+python main.py --local-file "lecture.pdf" --local-name "Course Lecture" --results-file "course.json"
+python main.py --local-file "paper.pdf" --local-name "Research Paper" --results-file "research.json"
+
+# Resume downloads for local files
+python main.py --download-only --results-file "course.json"
+```
+
 ## Processing Options
 
 ### OCR and Content Extraction
 
-All processing includes:
+All processing modes (course, PDF URL, local file) include:
 - **OCR**: Optical Character Recognition for scanned text
 - **Formula Detection**: Mathematical equations and formulas
 - **Table Extraction**: Structured data from tables
 - **Image Extraction**: All images with metadata
+
+### Upload vs Local Processing
+
+**Local File Processing Benefits:**
+- Files are securely uploaded to MinerU's servers for processing
+- Processing happens with the same full capabilities as URL-based processing
+- Files are automatically cleaned up from servers after processing
+- Results are downloaded back to your local machine
+
+**Comparison:**
+
+| Feature | URL Processing | Local File Processing |
+|---------|----------------|----------------------|
+| File location | Must be publicly accessible | Can be anywhere on your computer |
+| Privacy | URL must be shareable | File stays local until secure upload |
+| File size limits | Limited by URL accessibility | Limited by upload size (200MB max) |
+| Processing speed | Depends on URL availability | Depends on upload speed |
+| Security | URL-based access | Secure temporary upload |
 
 ### Language Support
 
