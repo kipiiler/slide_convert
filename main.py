@@ -2,6 +2,7 @@ import os
 import json
 import argparse
 import sys
+from urllib.parse import urlparse
 from mineru_client import MinerUClient
 from slide_scraper import SlideScraper
 from zipper import download_and_extract_zip
@@ -40,6 +41,46 @@ def process_slides(client: MinerUClient, slide_links: list):
             # Continue with next slide instead of stopping
             continue
 
+def process_single_pdf(client: MinerUClient, pdf_url: str, pdf_name: str = None):
+    """Process a single PDF URL"""
+    try:
+        # Generate name from URL if not provided
+        if not pdf_name:
+            parsed_url = urlparse(pdf_url)
+            pdf_name = os.path.basename(parsed_url.path)
+            if not pdf_name or not pdf_name.endswith('.pdf'):
+                pdf_name = f"document_{int(time.time())}.pdf"
+        
+        # Ensure .pdf extension
+        if not pdf_name.endswith('.pdf'):
+            pdf_name += '.pdf'
+        
+        print(f"Processing single PDF: {pdf_name}")
+        print(f"URL: {pdf_url}")
+        
+        # Create a task for the PDF
+        task_id = client.create_task(
+            url=pdf_url,
+            name=pdf_name,
+            is_ocr=True,
+            enable_formula=True,
+            enable_table=True
+        )
+        print(f"Created task for {pdf_name} with ID: {task_id}")
+        
+        # Wait for the task to complete
+        result = client.wait_for_task(pdf_name)
+        print(f"Completed processing {pdf_name}")
+        print(result)
+        
+        return True
+        
+    except Exception as e:
+        print(f"Error processing PDF {pdf_name}: {str(e)}")
+        # Save state after error
+        save_state(client)
+        return False
+
 def download_results(client: MinerUClient):
     """Download and extract results for completed tasks"""
     os.makedirs('output', exist_ok=True)
@@ -75,6 +116,23 @@ def get_user_input():
     
     return course_url, keyword
 
+def get_pdf_input():
+    """Get PDF URL and name from user input"""
+    print("=== Single PDF Processing Setup ===")
+    
+    # Get PDF URL
+    pdf_url = input("Enter the PDF URL: ").strip()
+    if not pdf_url:
+        print("Error: PDF URL is required!")
+        sys.exit(1)
+    
+    # Get optional custom name
+    pdf_name = input("Enter custom name for the PDF (or press Enter to auto-generate): ").strip()
+    if not pdf_name:
+        pdf_name = None
+    
+    return pdf_url, pdf_name
+
 def parse_arguments():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
@@ -83,8 +141,11 @@ def parse_arguments():
         epilog="""
 Examples:
   python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/" --keyword "slides"
+  python main.py --pdf-url "https://example.com/lecture01.pdf"
+  python main.py --pdf-url "https://example.com/lecture01.pdf" --pdf-name "Introduction to Security"
   python main.py --interactive
-  python main.py --url "https://example.com/course/" --download-only
+  python main.py --pdf-interactive
+  python main.py --download-only
         """
     )
     
@@ -92,6 +153,18 @@ Examples:
         '--url', '-u',
         type=str,
         help='Course schedule URL to scrape slides from'
+    )
+    
+    parser.add_argument(
+        '--pdf-url',
+        type=str,
+        help='Direct PDF URL to process (single file mode)'
+    )
+    
+    parser.add_argument(
+        '--pdf-name',
+        type=str,
+        help='Custom name for the PDF when using --pdf-url'
     )
     
     parser.add_argument(
@@ -103,7 +176,13 @@ Examples:
     parser.add_argument(
         '--interactive', '-i',
         action='store_true',
-        help='Run in interactive mode (prompts for input)'
+        help='Run in interactive mode (prompts for course URL input)'
+    )
+    
+    parser.add_argument(
+        '--pdf-interactive',
+        action='store_true',
+        help='Run in interactive mode for single PDF processing'
     )
     
     parser.add_argument(
@@ -129,18 +208,9 @@ Examples:
 
 def main():
     try:
+        import time  # Add missing import
         args = parse_arguments()
         
-        # Determine how to get input
-        if args.interactive or (not args.url and not args.download_only):
-            course_url, keyword = get_user_input()
-        elif args.download_only:
-            course_url = None
-            keyword = None
-        else:
-            course_url = args.url
-            keyword = args.keyword
-            
         # Initialize the MinerU client
         client = MinerUClient(results_file=args.results_file)
         
@@ -150,8 +220,46 @@ def main():
             download_results(client)
             return
         
+        # Handle single PDF processing
+        if args.pdf_interactive or args.pdf_url:
+            if args.pdf_interactive:
+                pdf_url, pdf_name = get_pdf_input()
+            else:
+                pdf_url = args.pdf_url
+                pdf_name = args.pdf_name
+            
+            # Process single PDF
+            success = process_single_pdf(client, pdf_url, pdf_name)
+            
+            # Print summary
+            print("\nProcessing Summary:")
+            tracked_requests = client.get_tracked_requests()
+            completed = len([req for req in tracked_requests if req['state'] == 'done'])
+            failed = len([req for req in tracked_requests if req['state'] == 'failed'])
+            pending = len([req for req in tracked_requests if req['state'] in ['pending', 'running', 'converting']])
+            
+            print(f"Completed: {completed}")
+            print(f"Failed: {failed}")
+            print(f"Pending: {pending}")
+            
+            # Save final state
+            save_state(client, args.results_file)
+            
+            # Download results
+            print("\nDownloading results...")
+            download_results(client)
+            return
+        
+        # Handle course scraping mode
+        # Determine how to get input
+        if args.interactive or (not args.url and not args.download_only):
+            course_url, keyword = get_user_input()
+        else:
+            course_url = args.url
+            keyword = args.keyword
+            
         if not course_url:
-            print("Error: Course URL is required!")
+            print("Error: Course URL is required! Use --url, --interactive, --pdf-url, or --pdf-interactive")
             sys.exit(1)
         
         # Initialize the slide scraper

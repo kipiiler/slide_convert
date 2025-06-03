@@ -6,6 +6,7 @@ A Python-based tool for automatically scraping course slides from university web
 
 - 🔍 **Automatic Slide Scraping**: Scrapes PDF slides from course schedule pages
 - 📄 **PDF Processing**: Converts PDFs using MinerU API with OCR, formula, and table extraction
+- 📋 **Single PDF Processing**: Process individual PDF files directly from URL
 - 🤖 **AI-Powered Image Captioning**: Automatically generates accessible alt-text for images in markdown using LLM
 - 💾 **State Management**: Tracks processing status and resumes from where it left off
 - 📦 **Batch Processing**: Handles multiple slides efficiently with error recovery
@@ -92,6 +93,23 @@ Process only slides containing "lecture":
 python main.py --url "https://courses.cs.washington.edu/courses/cse484/25sp/schedule/" --keyword "lecture"
 ```
 
+#### Single PDF Processing
+
+Process a single PDF file directly:
+```bash
+python main.py --pdf-url "https://example.com/lecture01.pdf"
+```
+
+Process a single PDF with custom name:
+```bash
+python main.py --pdf-url "https://example.com/lecture01.pdf" --pdf-name "Introduction to Security"
+```
+
+Interactive mode for single PDF:
+```bash
+python main.py --pdf-interactive
+```
+
 #### Advanced Options
 
 **Download only existing results** (no new processing):
@@ -114,8 +132,11 @@ python main.py --skip-processing
 | Argument | Short | Description |
 |----------|-------|-------------|
 | `--url` | `-u` | Course schedule URL to scrape slides from |
+| `--pdf-url` | | Direct PDF URL to process (single file mode) |
+| `--pdf-name` | | Custom name for the PDF when using --pdf-url |
 | `--keyword` | `-k` | Keyword to filter slides (e.g., "slides", "lecture") |
-| `--interactive` | `-i` | Run in interactive mode (prompts for input) |
+| `--interactive` | `-i` | Run in interactive mode (prompts for course URL input) |
+| `--pdf-interactive` | | Run in interactive mode for single PDF processing |
 | `--results-file` | `-r` | Path to results file (default: results/result.json) |
 | `--download-only` | `-d` | Only download results for previously processed slides |
 | `--skip-processing` | | Skip processing new slides, only download existing results |
@@ -136,7 +157,20 @@ Then enter:
 - URL: `https://courses.cs.washington.edu/courses/cse484/25sp/schedule/`
 - Keyword: `slides` (or press Enter for all)
 
-### Example 3: Resume Previous Session
+### Example 3: Process Single PDF
+```bash
+python main.py --pdf-url "https://cs.stanford.edu/~dabo/papers/sessionfixation.pdf"
+```
+
+### Example 4: Interactive Single PDF Processing
+```bash
+python main.py --pdf-interactive
+```
+Then enter:
+- PDF URL: `https://example.com/lecture01.pdf`
+- Custom name: `Security Fundamentals` (or press Enter to auto-generate)
+
+### Example 5: Resume Previous Session
 ```bash
 python main.py --download-only
 ```
