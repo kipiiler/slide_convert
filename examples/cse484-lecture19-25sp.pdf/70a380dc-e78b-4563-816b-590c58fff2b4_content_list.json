@@ -1,0 +1,875 @@
+[
+    {
+        "type": "text",
+        "text": "CSE 484/M584: Computer Security (and Privacy) ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Spring 2025 ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "David Kohlbrenner dkohlbre@cs ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "UW Instruction Team: David Kohlbrenner, Yoshi Kohno, Franziska Roesner, Nirvan Tyagi. Thanks to Dan Boneh, Dieter Gollmann, Dan Halperin, John Manferdeli, John Mitchell Vitaly Shmatikov, Bennet Yee, and many others for sample slides and materials ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Admin ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lab 3 Weblab due Wednesday ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "When helping other students on Ed, make sure you are helping them get unstuck or think about the problem differently, not posting an answer. ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Authentication ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Basic Problem ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/346db1d96c2eed7415e27248f5293dc9c4643b939a46324e64eb3acf59603605.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "How do you prove to someone that you are who you claim to be? ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Any system with access control must solve this problem. ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "A slightly more fundamental question ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": ". What are we trying to prove? ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Many Ways to Prove Who You Are ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "\"Something you know\" Passwords Answers to questions that only you know ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "\"Something you have' Secure tokens, mobile devices ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "\"Something you are' Biometrics ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Passwords are a classic attack vector ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": ": 2025: 80% of basic Web Application attacks used stolen creds : 56% used brute forcing of weak creds   \n: 2025: \\~15% of network instrusions used some sort of stolen/weak credentials : In 2022, was 50%! ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Source: Verizon Data Breach Investigations Report https://www.verizon.com/business/resources/reports/dbir/#archive Lots of interesting data here. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Passwords are a classic attack vector ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": ": First step after any successful intrusion: search for credentials : Install keyloggers/etc to capture more. ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": ": Second step: run cracking tools on password files . Cracking needed because modern systems usually do not store passwords in the clear ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "UNIX-Style Passwords",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": ". How should we store passwords on a server? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "In cleartext? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Encrypted? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Hashed? ",
+        "page_idx": 8
+    },
+    {
+        "type": "image",
+        "img_path": "images/96f20d91bf57f314581729a09d1760be6a24c0c32af5e85d5aa836cfd9d6eedc.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Gradescope! ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": ". What is a benefit of storing passwords encrypted? ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": ". What is a benefit of storing passwords hashed? ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Password Hashing ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Instead of user password, store H(password) ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": ". When user enters password, compute its hash and compare with entry in password file ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": ". System does not store actual passwords! . System itself can't easily go from hash to password Which would be possible if the passwords were encrypted ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": ". Hash function H must have some properties : One-way: given H(password), hard to find password - No known algorithm better than trial and error ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "\"Slow\" to compute ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "UNIX Password System ",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Approach: Hash passwords ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": ": Problem: passwords are not truly random ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "With 52 upper- and lower-case letters, 10 digits and 32 punctuation symbols, there are 948 == 6 quadrillion possible 8-character passwords (\\~252) ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "BUT: Humans like to use dictionary words, human and pet names == 1 million common passwords ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Dictionary Attack ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": ": Dictionary attack is possible because many passwords come from a small dictionary ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Attacker can pre-compute H(word) for every word in the dictionary - this only needs to be done once! ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": ".This is an offline attack .Once password file is obtained, cracking is instantaneous ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Sophisticated password guessing tools are available ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Take into account freq. of letters, password patterns, etc. ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Salt ",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "username:fURxfg 4hLBX:14510:30:User Name:/u/username:/bin/sh ",
+        "page_idx": 13
+    },
+    {
+        "type": "image",
+        "img_path": "images/2b817f6c60dc91800754cba1e4b545700526af2558b61c7b2a6913c053b9ee05.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Users with the same password have different entries in the password file Offline dictionary attack becomes much harder ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Advantages of Salting ",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": ": Without salt, attacker can pre-compute hashes of all dictionary words once for all password entries ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Same hash function on all UNiX machines   \nIdentical passwords hash to identical values; one table of hash values can be used for all password files ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": ". With salt, attacker must compute hashes of all dictionary words once for each password entry ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": ". With 12-bit random salt, same password can hash to $\\cdot$ different hash values . Attacker must try all dictionary words for each salt value in the password file ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Pepper: Secret salt (not stored in password file) ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Other Password Security Risks ",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": ". Keystroke loggers . Hardware : Software (spyware)   \n. Shoulder surfing   \n: Same password at multiple sites   \nBroken implementations .E.g. TENEX timing attack   \n: Social engineering ",
+        "page_idx": 15
+    },
+    {
+        "type": "image",
+        "img_path": "images/18e856614816b158c168463470a5e35655ccd7ee6448fb42c236704cc4990691.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Other Issues ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ": Usability .Hard-to-remember passwords? Carry a physical object all the time?   \n. Denial of service . Attacker tries to authenticate as you, account locked after three failures ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Default Passwords ",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ". Examples from Mitnick's \"Art of Intrusion\" ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ".U.S. District Courthouse server: \"public\" / \"public\" ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "- NY Times employee database: pwd $\\mathbf { \\sigma } = \\mathbf { \\sigma }$ last 4 SSN digits ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "Mirai IoT botnet ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ". Weak and default passwords on routers and other devices ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "Weak Passwords ",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "rockyou TM . RockYou hack .\"Social gaming\" company : Database with 32 million user passwords from partner social networks . Passwords stored in the clear : December 2009: entire database hacked using an SQL injection attack and posted on the Internet One of many such examples! ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "Weak Passwords ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "RockYou hack ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Password Popularity - Top 20 ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "rockyou\" ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "\" D P D p ",
+        "page_idx": 19
+    },
+    {
+        "type": "table",
+        "img_path": "images/a63456d2ca11fcb9c24cae145bfeaec85296efe5eed8dee496fe1e1b8949f3a0.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>Rank</td><td>Password</td><td>Number of Users with Password (absolute)</td></tr><tr><td>1</td><td>123456</td><td>290731</td></tr><tr><td>2</td><td>12345</td><td>79078</td></tr><tr><td>3</td><td>123456789</td><td>76790</td></tr><tr><td>4</td><td>Password</td><td>61958</td></tr><tr><td>5</td><td>iloveyou</td><td>51622</td></tr><tr><td>6</td><td>princess</td><td>35231</td></tr><tr><td>7</td><td>rockyou</td><td>22588</td></tr><tr><td>8</td><td>1234567</td><td>21726</td></tr><tr><td>9</td><td>12345678</td><td>20553</td></tr><tr><td>10</td><td>abc123</td><td>17542</td></tr></table></body></html>\n\n",
+        "page_idx": 19
+    },
+    {
+        "type": "table",
+        "img_path": "images/6aa85bc39a318d2d15562803bbf5a2e56997a44122d5a4cb258bf7c2aa8ceffe.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>Rank</td><td>Password</td><td>Number of Users with Password (absolute)</td></tr><tr><td>11</td><td>Nicole</td><td>17168</td></tr><tr><td>12</td><td>Daniel</td><td>16409</td></tr><tr><td>13</td><td>babygir!</td><td>16094</td></tr><tr><td>14</td><td> monkey</td><td>15294</td></tr><tr><td>15</td><td> Jessica</td><td>15162</td></tr><tr><td>16</td><td>Lovely</td><td>14950</td></tr><tr><td>17</td><td> michael</td><td>14898</td></tr><tr><td>18</td><td>Ashley</td><td>14329</td></tr><tr><td>19</td><td>654321</td><td>13984</td></tr><tr><td>20</td><td>Qwerty</td><td>13856</td></tr></table></body></html>\n\n",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Aside: Ethics of studying password breaches ",
+        "text_level": 1,
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "Is there a risk to using stolen password databases?   \n. Who might this hurt?   \nIs the payoff worth it? ",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "[Inglesant and Sasse, \"The True Cost of Unusable Password Policies\"] ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Password Policies ",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Old recommendation: ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "7 or 8 characters, at least 3 out of {digits, upper-case, lower-case, nonalphanumeric}, no dictionary words, change every 4 months, password may not be similar to previous 12 passwords.. ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Password Policies ",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "Old recommendation: ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "7 or 8 characters, at least 3 out of {digits, upper-case, lower-case, nonalphanumeric}, no dictionary words, change every 4 months, password may not be similar to previous 12 passwords.. ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": ". But ... results in frustrated users and less security ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "Burdens of devising, learning, forgetting passwords ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": ".Users construct passwords insecurely, write them down ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": ". Can't use their favorite password construction techniques (small changes to old passwords, etc.) ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "Heavy password re-use across systems (Password managers can help) ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "\"New\" (2017) NIST Guidelines ",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "Remove requirement to periodically change passwords : Screen for commonly used passwords   \n: Allow copy-paste into password fields   \n: But concern: what apps have access to clipboard?   \n. Allow but don't require arbitrary special characters Etc. ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "https://pages.nist.gov/800-63-3/sp800-63b.html ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "Improving(?) Passwords ",
+        "text_level": 1,
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": ". Add biometrics . For example, keystroke dynamics or voiceprint ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": ". Graphical passwords Goal: easier to remember? no need to write down? ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "Password managers .Examples: LastPass, KeePass, built into browsers Can have security vulnerabilities.. ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "Two-factor authentication Leverage phone (or other device) for authentication ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "Password managers ",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": ". Generation Secure generation of random passwords   \nManagement . Allows for password-per-account   \n. Safety? . Single point of failure Vulnerability? .Phishing? ",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "Multi-Factor Authentication ",
+        "text_level": 1,
+        "page_idx": 26
+    },
+    {
+        "type": "image",
+        "img_path": "images/dac0aedbc64b2ab2df0d0ad7b5dfa36432316a91fc07bec9e7089e588968fc0b.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "Secondary Factors Do Help! ",
+        "text_level": 1,
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "Account takeover prevention rates, by challenge type ",
+        "text_level": 1,
+        "page_idx": 27
+    },
+    {
+        "type": "image",
+        "img_path": "images/147a5a0f891a8e773b6f2e3c975bea4bf45dcba7a506fc510ed3b47bf154b32b.jpg",
+        "img_caption": [
+            "Device-based challenges ",
+            "Knowledge-based challenges "
+        ],
+        "img_footnote": [
+            "Both device- and knowledge-based challenges help thwart automated bots, while device-based challenges help ",
+            "thwart phishing and even targeted attacks "
+        ],
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "Why does hardware 2FA work? ",
+        "text_level": 1,
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": ". We need to stop the user who believe they are logging in from letting the attacker in. ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "Consider: ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "User goes to attacker[.]com/googlelogin.php   \nUser tries to log in   \n.How will SMS codes stop the attacker?   \n.How will a token that understands origins stop the attacker? ",
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "Hardware 2FA tokens (U2F/FIDO) ",
+        "text_level": 1,
+        "page_idx": 29
+    },
+    {
+        "type": "image",
+        "img_path": "images/0a4a64a3816abd19a7401855a53fd58c069ba220d6abfe342946be0f932dc63f.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "Graphical Passwords ",
+        "text_level": 1,
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": ". Many variants... one example: Passfaces . Assumption: easy to recall faces ",
+        "page_idx": 30
+    },
+    {
+        "type": "image",
+        "img_path": "images/6f4bbee60a2f94b0f3cdebdfcc98bd91f5d4abd199300fbe9279a998fd93fb5c.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Graphical Passwords ",
+        "text_level": 1,
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "Another variant: draw on the image (Windows 8) ",
+        "page_idx": 31
+    },
+    {
+        "type": "image",
+        "img_path": "images/a1d470045ed77a748e3867f5eefcb674e10bee897864bf687777e1696c55d704.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "Problem: users choose predictable points/lines ",
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "Unlock Patterns ",
+        "text_level": 1,
+        "page_idx": 32
+    },
+    {
+        "type": "image",
+        "img_path": "images/9290ea2943612875e6a1a095e65fe6289814b7802ea1374743f1fd3d5a5efbf1.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "Problems: ",
+        "text_level": 1,
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "Predictable patterns (familiar pattern by now)   \nSmear patterns   \nSide channels: apps can use accelerometer and gyroscope to extract pattern! ",
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "What About Biometrics? ",
+        "text_level": 1,
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ". Authentication: What you are ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ". Unique identifying characteristics to authenticate user or create credentials ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Biological and physiological: Fingerprints, iris scan ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Behaviors characteristics - how perform actions: Handwriting, typing, gait ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Advantages: ",
+        "text_level": 1,
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Nothing to remember ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ".Passive ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Can't share (generally) ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ".With perfect accuracy, could be fairly unique ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "What are reasons to use/not use biometrics? ",
+        "page_idx": 34
+    },
+    {
+        "type": "text",
+        "text": "Issues with Biometrics ",
+        "text_level": 1,
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "Private, but not secret ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "Maybe encoded on the back of an ID card? ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": ".Maybe encoded on your glass, door handle, ... ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "Sharing between multiple systems? ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": ". Revocation is difficult (impossible?) . Sorry, your iris has been compromised, please create a new one... ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": ". Physically identifying . Soda machine to cross-reference fingerprint with DMV? ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "Birthday paradox . With false accept rate of 1 in a million, probability of false match is above 50% with only 1609 samples ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "US Law and Biometrics ",
+        "text_level": 1,
+        "page_idx": 36
+    },
+    {
+        "type": "text",
+        "text": ": Circuit splits on what 5th amendment covers. ",
+        "page_idx": 36
+    },
+    {
+        "type": "text",
+        "text": ": Broadly: some biometrics (e.g. face unlock) may not be protected : Some biometrics (e.g. fingerprint) might be protected ",
+        "page_idx": 36
+    },
+    {
+        "type": "text",
+        "text": "Passcodes are protected ",
+        "page_idx": 36
+    },
+    {
+        "type": "text",
+        "text": "Attacking Biometrics ",
+        "text_level": 1,
+        "page_idx": 37
+    },
+    {
+        "type": "text",
+        "text": ": An adversary might try to steal biometric info . Malicious fingerprint reader Consider when biometric is used to derive a cryptographic key . Residual fingerprint on a glass ",
+        "page_idx": 37
+    },
+    {
+        "type": "text",
+        "text": "TouchID ",
+        "page_idx": 37
+    },
+    {
+        "type": "image",
+        "img_path": "images/9d85ae59b42e0b8db3cf4deb020d4a9d2b1bf7f5a95bae5cb309ce566ac4b551.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 37
+    },
+    {
+        "type": "text",
+        "text": "Security. Right at your fingertip. ",
+        "text_level": 1,
+        "page_idx": 37
+    },
+    {
+        "type": "text",
+        "text": "Your fingerprint is the perfect password.You always have it with you.And no one can ever guess what it is.Our breakthrough Touch ID technology uses a unique fingerprint identity sensor to make unlocking your phone easy and secure.And with new developments in iOS 8 and Touch ID,your fingerprint will grant you faster access to so much more. ",
+        "page_idx": 37
+    },
+    {
+        "type": "text",
+        "text": "Passkeys (2024ish) ",
+        "text_level": 1,
+        "page_idx": 38
+    },
+    {
+        "type": "text",
+        "text": ": An actual, deployed, genuine password replacement . Also a 2fa replacement! . And a username replacement! ",
+        "page_idx": 38
+    },
+    {
+        "type": "text",
+        "text": "Basic goals: ",
+        "page_idx": 38
+    },
+    {
+        "type": "text",
+        "text": ": Store some sort of key on user end-devices   \nUse that key to login to Stuff   \nDon't allow losing the key   \n: Somehow make the key moving between devices Easy ",
+        "page_idx": 38
+    }
+]

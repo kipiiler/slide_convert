@@ -1,0 +1,469 @@
+[
+    {
+        "type": "text",
+        "text": "CSE 484/ CSE M 584: Public Key Encryption + Digital Signatures ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Winter 2025 ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Nirvan Tyagi tyagi@cs ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "UW Instruction Team: David Kohlbrenner, Yoshi Kohno, Franziska Roesner, and Nirvan Tyagi. Thanks to Dan Boneh, Dieter Gollmann, Dan Halperin, John Manferdelli, John Mitchell, Vitaly Shmatikov, Bennet Yee, Nickolai Zeldovich and many others. ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Announcements ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Things due Homework 2: Next Wednesday ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Applications of Public Key Cryptography ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Encryption for confidentiality   \nDigital signatures for integrity   \nSession key establishment / \"Key exchange\" ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "images/31b6b9f508216d7f544c1d81a6257740adde69e88cd1f80fdbaaa4c357bff728.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/e689d5261fe6cb0ee3a228950ce856d2183c8c5e6dbd0953cbfdaa2cabb451ae.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 4
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\mathsf { E n c r y p t } ( \\mathsf { p k } _ { \\mathsf { _ B } } , \\mathsf { m } ) \\to \\mathsf { c t }\n$$",
+        "text_format": "latex",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "images/9325d8bee15ca1cf50f2ed2d521e14b0c511fbe4dda60ab6afbcae84392fe2af.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "$\\mathsf { E n c r y p t } ( \\mathsf { p k } _ { \\mathsf { _ B } } , \\mathsf { m } ) \\to \\mathsf { c t }$ $\\mathsf { D e c r y p t } ( \\mathsf { s k } _ { \\mathsf { _ B } } , \\mathsf { c t } ) \\to \\mathsf { m }$ ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption from Diffie-Hellman ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/0e18bc2d3146dbb20c7865136b637e0ae0ee8746e37cdea192287a9b22c24cbd.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption from Diffie-Hellman ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/f81e8498fcf0727c4ffb0f68c4de455a84f65c76221832de7f89e0f511930dd7.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Compute DH shared secret:   \nK= H(gy)   \nEncrypt with authenticated symmetric encryption:   \nctse =SE.Enc(K, m) ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption from Diffie-Hellman ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "image",
+        "img_path": "images/0c33e700ded3093f9fc4ef6b6f0281467e2773dfe8f769cc020facc2c5816c5e.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Public Key Encryption from Diffie-Hellman ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/9ca497dfec97f57771dc01e4bfff3935f1d30dfb8a4ec19c08d16f1414bbed71.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Digital Signatures ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "No one should be able to forge signatures from Bob's public key without Bob's secret key ",
+        "page_idx": 10
+    },
+    {
+        "type": "image",
+        "img_path": "images/2347f417c9a1a3b7301e32442a9841ebbb21946b5c530c4ff4b66f4c5b4c8c65.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Digital Signatures ",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "No one should be able to forge signatures from Bob's public key without Bob's secret key ",
+        "page_idx": 11
+    },
+    {
+        "type": "image",
+        "img_path": "images/a1acdf85fb45bc9bc4f5e783a998c8cca2245b1204e70c4f7875a8b0107c90c9.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Digital Signatures ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "No one should be able to forge signatures from Bob's public key without Bob's secret key ",
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "images/9b34e55e3dcdad45778a1b2614336f75d0c12a6c96f808c2810da7e72ea02bc8.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Digital Signatures ",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "No one should be able to forge signatures from. Bob's public key without Bob's secret key ",
+        "page_idx": 13
+    },
+    {
+        "type": "image",
+        "img_path": "images/302b1efa9286eeea69d697c050d2f32688b913b43d7ba8e582da49d06d33f7b8.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "$\\mathsf { V e r i f y } ( \\mathsf { p k } _ { \\mathsf { B } } , \\mathsf { m } , \\sigma ) \\to 0 / 1$ $\\mathsf { S i g n } ( \\mathsf { s k } _ { \\mathsf { s } } , \\mathsf { m } ) \\to \\sigma$ ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "In-Class Activity 2/5: What benefit do signatures have over MACs? ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Assume prime-order group ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Schnorr Signature ",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Sample one-time key:   \nr, g   \nCompute random challenge:   \nc=H(g',g,m)   \nProve \"knowledge\" of y:   \nz =r+ yc ",
+        "page_idx": 14
+    },
+    {
+        "type": "image",
+        "img_path": "images/54bce46acfc8866e6878d025027596d577bd9308beed4a7a1860de40e3c07552.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Alice ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Assume prime-order group ",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Schnorr Signature ",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Sample one-time key:   \nr, g   \nCompute random challenge:   \nc =H(g',g,m)   \nProve \"knowledge\" of y:   \nz =r+ yc ",
+        "page_idx": 15
+    },
+    {
+        "type": "image",
+        "img_path": "images/5fb06db0e29ef437f3628ee8e68565bcd7b6b3c33ffe59e6dd1a3017593f75fb.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Assume prime-order group ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Schnorr Signature ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Sample one-time key:   \nr,g   \nCompute random challenge:   \nc=H(g',g,m)   \nProve \"knowledge\" of y:   \nz =r+ yc ",
+        "page_idx": 16
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\mathsf { \\Lambda } \\mathsf { c } = \\mathsf { H } ( \\mathrm { \\Lambda } )\n$$",
+        "text_format": "latex",
+        "page_idx": 16
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\mathbf { g } ^ { z } = \\vec { \\mathbf { \\nabla } } \\mathbf { g } ^ { \\mathsf { r } } \\oplus ( \\mathbf { g } ^ { \\mathsf { y } } ) ^ { \\mathsf { c } }\n$$",
+        "text_format": "latex",
+        "page_idx": 16
+    },
+    {
+        "type": "image",
+        "img_path": "images/2251ac76190a7730cd9fad5a914a8d025741798a44a4ffa35021732347ce61ce.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "RSA Cryptosystem [Rivest, Shamir, Adleman 1977] ",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ". Operates over $Z _ { n } ^ { \\star }$ for n = pq (product of 2 primes) ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ".Background: Helpful number theory facts about Z \\* $- \\mathrm { O r d e r } = \\varphi ( \\mathsf { n } ) = ( \\mathsf { p } - 1 ) ( \\mathsf { q } - 1 )$ . $\\varphi ( { \\mathfrak { n } } )$ : Euler's Totient Function: # of integers in [1,n) relatively prime to n -Euler's Theorem: $\\textsf { F o r e v e r y a } \\in \\mathsf { Z } _ { \\mathsf { n } } ^ { \\star } , \\mathsf { a } ^ { \\varphi ( \\mathsf { n } ) } = 1 \\left( \\mathsf { m o d } \\mathsf { n } \\right)$ ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "RSA Cryptosystem [Rivest, Shamir, Adleman 1977] ",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "image",
+        "img_path": "images/c5d94e4aa6bf1f19d846e2bb8eac2e58cdf7a99b338568bd58bf2667746aaf0d.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "Key generation: ",
+        "text_level": 1,
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "Generate large primes p, q   \n- Compute $n = p 9$ and $\\scriptstyle { \\varphi ( { \\mathsf { n } } ) = ( { \\mathsf { p } } - 1 ) ( { \\mathsf { q } } - 1 ) }$   \n- Choose small e, relatively prime to o(n)   \n- Compute modular inverse d: ed = 1 mod $\\varphi ( \\mathsf { n } )$   \n$- \\mathrm {  ~ p k _ { \\scriptscriptstyle B } = ( e , n ) } ;$ ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "RSA Cryptosystem [Rivest, Shamir, Adleman 1977] ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "image",
+        "img_path": "images/cddebe1ac61eecbf6d1ddaf67e8a3622295c195d4ddff6bcbd76103bb9389fd7.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Key generation: ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "- Generate large primes p, q   \nCompute $n = p 9$ and $\\scriptstyle \\varphi ( { \\mathsf { n } } ) = ( { \\mathsf { p } } - 1 ) ( { \\mathsf { q } } - 1 )$   \nChoose small e, relatively prime to $\\varphi ( { \\mathsf n } )$   \n- Compute modular inverse d: ed = 1 mod $\\varphi ( \\mathsf { n } )$   \n$- \\mathrm { \\bf ~ p k } _ { \\mathrm { \\scriptscriptstyle B } } = ( \\mathrm { e } , \\mathrm { n } ) ;$ ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Encryption: ct = me mod n ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Decryption: ctd mod n = (me)d mod n = m ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Why is RSA Secure? ",
+        "text_level": 1,
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": ".RSA problem: given c, n=pq, and $\\mathsf { e }$ such that gcd(e, (n))=1, find m such that $\\cdot$ mod n   \n. Factoring problem: given positive integer n, find primes $\\mathsf { p } _ { 1 } , \\ldots , \\mathsf { p } _ { \\mathsf { k } }$ such that $\\mathsf { n } { = } \\mathsf { p } _ { 1 } ^ { \\ \\mathsf { e } _ { 1 } } \\mathsf { p } _ { 2 } ^ { \\ \\mathsf { e } _ { 2 } } { \\ldots } \\mathsf { p } _ { \\mathsf { k } } ^ { \\mathsf { \\Gamma } }$ %   \nIf factoring is easy, then RSA problem is easy (knowing factors means you can compute ${ \\sf d } =$ inverse of e mod (p-1)(q-1)) ",
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "Why is RSA Secure? ",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": ". RSA problem: given c, n=pq, and $\\mathsf { e }$ such that gcd(e, (n))=1, find m such that $\\cdot$ mod n ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": ": Factoring problem: given positive integer n, find primes $\\mathsf { p } _ { 1 } , \\ldots , \\mathsf { p } _ { \\mathsf { k } }$ such that $\\mathsf { n } { = } \\mathsf { p } _ { 1 } ^ { \\ \\mathsf { e } _ { 1 } } \\mathsf { p } _ { 2 } ^ { \\ \\mathsf { e } _ { 2 } } { \\ldots } \\mathsf { p } _ { \\mathsf { k } } ^ { \\mathsf { \\Gamma } }$ ek 6 ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "If factoring is easy, then RSA problem is easy (knowing factors means you can compute ${ \\sf d } =$ inverse of e mod (p-1)(q-1)) ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Other RSA Caveats ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "If m is small, can brute force   \nNot randomized!   \nRequires n \\~ 2048-4096 bits for 128-bits of security   \nLargely being phased out for efficient elliptic curve group cryptography ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "What do Quantum Computers mean for Cryptography? ",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "What do Quantum Computers mean for Cryptography? ",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "1. Implications for existing cryptography ",
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "What do Quantum Computers mean for Cryptography? ",
+        "text_level": 1,
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "1. Implications for existing cryptography ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": ".Quantum algorithms exist to solve \"hard\" assumptions quickly o Shor's algorithm can solve factoring and discrete logarithm \"Post-quantum\" cryptography o  Build asymmetric cryptography for classical computers based on assumptions that we think are \"hard\"' even for quantum computers \"Lattice-based\" cryptography 2. Implications for future cryptography Quantum computing offers new hardness assumptions and new functionality from which to build cryptography ",
+        "page_idx": 24
+    }
+]

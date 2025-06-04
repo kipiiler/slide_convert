@@ -1,0 +1,438 @@
+[
+    {
+        "type": "text",
+        "text": "CSE 484/M584: Computer Security (and Privacy) ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Spring 2025 ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "David Kohlbrenner dkohlbre@cs ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "UW Instruction Team: David Kohlbrenner, Yoshi Kohno, Franziska Roesner, Nirvan Tyagi. Thanks to Dan Boneh, Dieter Gollmann, Dan Halperin, John Manferdeli, John Mitchell Vitaly Shmatikov, Bennet Yee, and many others for sample slides and materials ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Admin ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": ". Lab 3 weblab due next week. Start early, etc etc ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Anonymous Tracking ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Trackers included in other sites use third-party cookies containing unique identifiers to create browsing profiles. ",
+        "page_idx": 2
+    },
+    {
+        "type": "image",
+        "img_path": "images/e8361af4a1c46c784ee44b9ee5567ad2879bb504eba3a3d602a513f28940c074.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Basic Tracking Mechanisms ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": ". Tracking requires: (1) re-identifying a user. (2) communicating id $+$ visited site back to tracker. ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Hypertext Transfer Protocol GET /pixel/p-3aud4J6uA4Z6Y.gif?labels=InvisibleBox&busty=2710 HTTP/1.1\\r\\n Host: pixel.quantserve.com\\r\\n Connection: keep-alive\\r\\n Accept: image/webp,\\*/\\*;q=0.8\\r\\n User-Agent: Mozilla/5.0 (Macintosh; Intel Mac 0S X 10_9_2) AppleWebKit/537.36 Referer: http://www.theonion.com/\\r\\n Accept-Encoding: gzip, deflate,sdch\\r\\n Accept-Language: en-Us,en;q=0.8\\r\\n Cookie:mc=52a65386-f1de1-00ade-0b26e;d=ENkBRgGHD4GYEA35MMIL74MKiyDs1A2MQI1Q ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Tracking Technologies ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "HTTP Cookies HTTP Auth HTTP Etags   \nContent cache   \nIE userData HTML5 protocol and conten handlers HTML5 storage   \nFlash cookies   \nSilverlight storage   \nTLS session ID & resume   \nBrowsing history   \nwindow.name   \nHTTP STS   \nDNS cache ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "\"'Zombie\" cookies that respawn (http://samy.pl/evercookie ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Other Trackers? ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "images/a2038dba9ff65318e835ec4f0bfccc6acbfd5dbaa635fac2ebc7a786d1cda7d5.jpg",
+        "img_caption": [
+            "\"Personal\" Trackers "
+        ],
+        "img_footnote": [],
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "images/e25e27a2d27860c4fc599ac43cf0a6f12ba6d3358c4ac3917f9ce8fb83083623.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Personal Tracking ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "image",
+        "img_path": "images/6eb335556c139eed325c95e2bbea49b38ecc329d8d4538dcef7595185f6e8710.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": ".Tracking is not anonymous (linked to accounts).   \nUsers directly visit tracker's site > evades some defenses. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track? ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Send a 'Do Not Track' request with your browsing traffic ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track is not a technical defense: trackers must honor the request. ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track proposal? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Private browsing mode? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Private browsing mode doesn't protect against network attackers fully. ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "You've gone incognito ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Now you can browse privately, and other people who use this device won't see your activity. However, downloads and bookmarks will be saved. Learn more ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Chrome won't save the following information: ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Your activity might still be visible to: ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Your browsing history Cookies and site data Information entered in forms ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Websites you visit Your employer or school Your internet service provider ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track proposal? Private browsing mode? .Third-party cookie blocking? ",
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "images/b4da0c99a70f5f4bc0714848cd462a17aef6fcc0b39aa5cf513cea2972d1cdf3.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "3rd party cookies ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Chrome... ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "\"By undermining the business model of many ad-supported websites, blunt approaches to cookies encourage the use of opaque techniques such as fingerprinting (an invasive workaround to replace cookies), which can actually reduce user privacy and control. We believe that we as a community can, and must, do better.\" ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Aug 2022: Remove $3 ^ { \\mathsf { r d } }$ party cookies by 2024 ",
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "The state of 3rd party cookies ",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Safari: ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": ": Blocks most - https://webkit.org/blog/10218/full-third-party-cookie-blockingand-more/ ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Chrome ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": ": No longer removing. https://privacysandbox.com/news/privacy-sandboxnext-steps/ ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Firefox : Specific blocks/etc https://developer.mozilla.org/en-US/blog/goodbye-thirdparty-cookies/ ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": ". Others . Variety of behaviors, wide variation ",
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "An alternative, popular, approach is fingerprinting : Website runs some javascript to measure browser/machine behavior Generates an ID from this : ID is semi-consistent even across things like incognito mode ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": ". Fingerprinting is unaffected by $3 ^ { \\mathsf { r d } }$ party cookie changes! ",
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Gradescope: Fingerprint the browser! ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Your (ad company) goal is to track users whenever they load your <iframe>   \n. They don't have $3 ^ { \\mathsf { r d } }$ party cookies   \n. So you will measure their browser instead from JS.   \n. What might be a good thing to measure? ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": ". The user agent string from each browser   \nThe HTTP ACCEPT headers sent by the browser   \nScreen resolution and color depth   \nThe Timezone your system is set to   \n. The browser extensions/plugins, like Quicktime, Flash, Java or Acrobat, that are installed in the browser, and the versions of those plugins   \n. The fonts installed on the computer, as reported by Flash or Java.   \nWhether your browser executes JavaScript scripts ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": ". Yes/no information saying whether the browser accepts various kinds of cookies and \"super cookies\" ",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": ". A hash of the image generated by canvas fingerprinting   \n. A hash of the image generated by WebGL fingerprinting   \n. Yes/no whether your browser is sending the Do Not Track header   \nYour system platform (e.g. Win32, Linux x86)   \n. Your system language (e.g. en-US)   \nYour browser's touchscreen support ",
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ": Yes/no information saying whether the browser accepts various kinds of cookies and \"super cookies\" ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ". A hash of the image generated by canvas fingerprinting ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ". A hash of the image generated by WebGL fingerprinting ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Yes/no whether your browser is sending the Do Not Track header. ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ": Your system platform (e.g. Win32, Linux x86) ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Your system language (e.g. en-US) ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": ". Your browser's touchscreen support ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "WebGL and Canvas Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "Every combination of OS, drivers, GPU, etc renders things slightly differently.   \n. This is deterministic. ",
+        "page_idx": 17
+    },
+    {
+        "type": "image",
+        "img_path": "images/02953ee6f0dfce29c368329c4bbe3c5d272b0e7e664828116de12bec7f94d7bf.jpg",
+        "img_caption": [
+            "Figure 10: Original render and difference maps for Group 24 "
+        ],
+        "img_footnote": [],
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "WebGL an ",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "Every combina differently. This is determi ",
+        "page_idx": 18
+    },
+    {
+        "type": "table",
+        "img_path": "images/cc298da948a4ebe612573b3a5d469724199c4635811cb8239c2d7a37d91b83ab.jpg",
+        "table_caption": [
+            "Windows: "
+        ],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>How quickly daft jumping zebras vex. (Also, pur</td><td rowspan=\"8\">ngs slightly</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pur.</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pur</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pur.</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pu</td></tr><tr><td>OS X:</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pu</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pu</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pu</td></tr><tr><td>How quickly daft jumping zebras vex. (Also, pu</td><td rowspan=\"2\"></td></tr><tr><td>Linux: How quickly daft jumping zebras vex. (Also, pu</td></tr><tr><td></td><td rowspan=\"2\"></td></tr><tr><td rowspan=\"2\">How quickly daft jumping zebras vex. (Also, pur How quickly daft jumping zebras vex. (Also, p.</td></tr><tr><td></td></tr></table></body></html>\n\n",
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "Cookie ghostwriting ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": ": No 3rd party cookies allowed ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Instead, <script src=https://trackerdomain/cookiewriter.js/> ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": ". No lIonger in an iframe... what can they do? ",
+        "page_idx": 19
+    }
+]

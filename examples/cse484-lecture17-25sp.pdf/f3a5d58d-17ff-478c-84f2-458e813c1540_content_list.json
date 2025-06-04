@@ -1,0 +1,1309 @@
+[
+    {
+        "type": "text",
+        "text": "CSE 484/M584: Computer Security (and Privacy) ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Spring 2025 ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "David Kohlbrenner dkohlbre@cs ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "UW Instruction Team: David Kohlbrenner, Yoshi Kohno, Franziska Roesner, Nirvan Tyagi. Thanks to Dan Boneh, Dieter Gollmann, Dan Halperin, John Manferdeli, John Mitchell Vitaly Shmatikov, Bennet Yee, and many others for sample slides and materials ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Admin ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Lab 3 Weblab due next week. Start early, etc etc ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Please double check your Lab 2 gradescope handins . Partner status for code, etc. Remember that you need to make sure there is ONE handin for partners. ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "genai ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": ". No really, please don't use this. ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "CSRF ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Its just one PosT request, how bad can it be? ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Why does adding a magic value to the form from bank.com work?. Victim Browser ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "images/68e9d8a1670486c53abe90c97a27daadc489d23e4c996e838c52281568e18448.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Add Secret Token to Forms <input type=hidden value=23a3af01b> ",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": ".\"Synchronizer Token Pattern' ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Include a secret challenge token as a hidden input in forms ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": ".Token often based on user's session ID ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Server must verify correctness of token before executing sensitive operations ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": ": OR add it as an additional cookie, with different permissions (which ones?) ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Why does this work? ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "Same-origin policy: attacker can't read token out of legitimate forms loaded in user's browser, so can't create fake forms with correct token ",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "CSRF Defenses ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Relevant and useful discussion: https://github.com/golang/go/issues/73626 ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": ". Double-submit magic token in POsT (and the cookie) ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": ": Origin headers/refer[r]er checking: : Validate what the browser says about the request originating from : Pre-2020, some browsers didn't send on POst(??) ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Cookie restrictions (SameSite) : Tells browser not to send cookies unless starting page is same origin (ish) ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Etc. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": ". Honestly, go read filippo's golang discussion, its great. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Referer Validation ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Facebook Login ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "For your security, never enter your Facebook password on sites not located on Facebook.com. ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Referer: http://www.facebook.com/home.php ",
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/19a40ba5071bcff48ca7b156d9e349e043062dc82e42ac5f48fca8cc7e9e7f18.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "images/5c6e38f00d051e94dc5d4806f04d6a725503718293a5681d6e389cfcf35eeb4b.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Referer: http://www.evil.com/attack.html ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Referer: ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "- Lenient referer checking - header is optional : Strict referer checking - header is required ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Why Not Always Strict Checking? ",
+        "text_level": 1,
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": ". Why might the referer header be suppressed? ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Stripped by the organization's network filter   \n. Stripped by the local machine   \nStripped by the browser for HTTPS -> HTTP transitions   \n. User preference in browser   \nIntentional browser behaviors   \n: etc ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Surprise not-quiz time ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "XSS again ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Reflected xSS ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "image",
+        "img_path": "images/482ccb4c80864aceab392efe14c04ba21e5d944658e37ad12cea3ce969a25f86.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "Stored XSS ",
+        "text_level": 1,
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "Attack server ",
+        "page_idx": 11
+    },
+    {
+        "type": "image",
+        "img_path": "images/f7601da52b8dc431146c3bb3660f73cbe2c8d3054422e8ec54d2350247b54e6e.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 11
+    },
+    {
+        "type": "text",
+        "text": "XSRF (aka CSRF) ",
+        "text_level": 1,
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Server victim ",
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "images/4e2ea24700e330e7cc3302cc46376c2224726cafdc678ec954590fd8ed1e02c9.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 12
+    },
+    {
+        "type": "image",
+        "img_path": "",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 12
+    },
+    {
+        "type": "text",
+        "text": "Privacy and web tracking ",
+        "text_level": 1,
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "Aka: so what were all those cookies for anyway? ",
+        "page_idx": 13
+    },
+    {
+        "type": "text",
+        "text": "A topic in flux ",
+        "text_level": 1,
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Tracking via cookies ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Tracking via other methods ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "page_idx": 14
+    },
+    {
+        "type": "text",
+        "text": "Ads That Follow You ",
+        "text_level": 1,
+        "page_idx": 15
+    },
+    {
+        "type": "image",
+        "img_path": "images/a8707d55ca2098083e52817ad498735e10fe990d4045cedd3092cd490e79f4c4.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 15
+    },
+    {
+        "type": "text",
+        "text": "Third-Party Web Tracking ",
+        "text_level": 1,
+        "page_idx": 16
+    },
+    {
+        "type": "image",
+        "img_path": "images/b9bd51bb35a18eac3e097def9382037344a284c74676cff6ee4287d677233863.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "These ads allow criteo.com to link your visits between sites, even if you never click on the ads. ",
+        "page_idx": 16
+    },
+    {
+        "type": "text",
+        "text": "Gradescope ",
+        "text_level": 1,
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "Do you take any particular precautions about tracking? ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": "For web browsing? Phone apps? Phone tracking? ",
+        "page_idx": 17
+    },
+    {
+        "type": "text",
+        "text": ". Why do you take or not take those actions? .Any you would like to but don't? ",
+        "page_idx": 17
+    },
+    {
+        "type": "image",
+        "img_path": "images/988be317720c331e16a285f7b6eca0765b044158b943707990ec19239ab42a2b.jpg",
+        "img_caption": [
+            ""
+        ],
+        "img_footnote": [],
+        "page_idx": 18
+    },
+    {
+        "type": "text",
+        "text": "2022 Marketing Technology Landscape May2022 ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Advertising & Promotion ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Content &Experience ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Social & Relationships ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Commerce &Sales ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Data Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Display & Programmatic Advertising ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "V 0 W \\* R 6 0 C 0o EAO D06 o 8 e Cp J 3 8 0 - XIV MORA ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Mobile Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "M A - W P Na S A M ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Native/Content Advertising ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "2 DCNC Y 4 O O0 6x 7 p O 3 0 0 US pkc an X CN ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "PR ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "OOVCNPG A 7 S eR D0 S 0s e O 03 O O-CAN ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Print ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "40C0 Q 0P8 P = ? e   \nR 0 C .s LE D KEM ao ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Search & Social Advertising ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "0OCnOGCGOL00Z00 0+GC00CASC0 -bs C A n0s y=be ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Video Advertising ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DG E 1 AGBSRG C0 O X0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Content Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "wGOAP O0OC",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "CMS&Web Experience Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "c 52 C. ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DAM&MRM&PIM ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DC A A P   \nOGT WOOVDWK COR   \n9 LO OMA ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Email Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "COZVCM OG O e0 S a S 80000 4 6 N = T LZ ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Interactive Content ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "G C 30 BOOL8VOBC :fo C O O w 3   \n- a D   \nM ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Marketing Automation & Campaign/Lead Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "WCOO -   \nC ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Mobile Apps ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "300Cm0ns0y000300r0x0-y90PG E000050+80G90G710HG b0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Optimization Personalization & Testing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "P YO 6 f O O 2 C 000 A y POQC C P C S0- O ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "SEO ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "tps S2 en LW C COOSC AC AO ca B R 6 b ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Video Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "GGRVCOCOOOV a R0n000 BW OSHOIOSD0 7 Q 6!0 04 SDXW OCCG2OROD 9 H ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "ABM ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "OPOCOROOAOSNTOAOD ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Call Analytics &Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "t0+00c00V80>0s56r0p00000000 CD 9CO amC -00c000 0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Customer Experience Service & Success ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "b .0 M A m 26 6MOO < O 6 MeocnU ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Influencers ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "10OH0720R0g00S 2x0050.000+80>00s0000-00000000 A2WT0OAOAN ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "CRM ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "O () S D C S - & - 1 6 m C CC A O n N ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Advocacy Loyalty & Referrals ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "e eWB\\*O R R m 7 F 0000 . C ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Community & Reviews ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "AO 000000T0000 A esr9ao9cCco 4 14 0G \\* RS 5 c C S8 0 0 28 . Q ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Events, Meetings & Webinars ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DOV C Clf 021 OM ES   \n3   \nO COO Q O1 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Social Media Marketing & Monitoring ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "RE 5 P @ A ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Live Chat &Chatbots ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "- D 6 5 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Retail,Proximity &IOT Marketing Analytics Performance & Attribution Agile & Lean Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "p e CO 1 CWOOM OD N P   \n0 P S 3 O 6 S E ee   \nREGO P D ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Affiliate Marketing & Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "0 .BD QGCAOSOGD Q 0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Sales Automation Enablement & Intelligenci ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "D HD 00 mmOpKO ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "eCommerce Platforms & Carts ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "5HO P . CC 3 e 1 SH . S ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "eCommerce Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Wo QN   \n- WOEXSDQO   \nF OGES   \nC   \n6 CA JO0   \nO aP ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Channel Partner & Local Marketing ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "C C n A ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Xn SKLNGOCG CCZGAP=O ODOROVRTCCO RAKS x0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Audience/Marketing Data &Data Enhancement ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Cy 00 se 9 1 X . N0 a2 O OL BAE ON De0G0 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Ipaas Cloud/Data Integration & Tag Management   \nP QG   \nuw O HDKCO   \nS A3E   \ne P tP G   \n- BC ED   \n- 0 0 D   \nBusiness/Customer Intelligence & Data Science   \nPROO 2 O me 0 C   \nH A FOO   \nO Q   \nL OA   \na C ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "DMP ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "COA tDGoC\\* ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Dashboards &Data Visualization ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "SCCOCEOS a. VYGO DW C M. 10   \nK\\`O e FO ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Governance Compliance And Privacy ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "G 6=GgR0O 1n ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Mobile &Web Analytics ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "CyS+G GOCS MOCOOQGODAG es ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Customer Data Platform ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "=CsGtepdC 4 AqnOP x 5 60c ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "S000 00006-0500 ge",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Collaboration ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "X  \n2CGGX O OTKGZO   \neoec O OOZCJOOO OC 3 6 c0 pe b C 085 Gc@ Dn O M 9   \nn09   \n24 C ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Talent Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "P 000 00 00 H V YO r 16 Q 4 9 m T D 002 TAOCSCGO6 2 . 00 AD P +5 OGOSOKCO 80 80 ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Budgeting &Finance ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "O :.r 4p W a3",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Projects &Workflow ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "2O KB 50IE 8Ae wQNa OO0  \na 0 4O c  \n902 c 000S  \nG i 0sc  \n0",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Product Management ",
+        "text_level": 1,
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "COcP0 KC MbCCrA ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "Vendor Analysis & Management ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "PFKOGODSMGNY 00 OGOGOROOMOR GG D ",
+        "page_idx": 19
+    },
+    {
+        "type": "text",
+        "text": "6,521% growth 2011 to 2022 ",
+        "text_level": 1,
+        "page_idx": 20
+    },
+    {
+        "type": "image",
+        "img_path": "images/d4ffd588e9f3a62e3bab000bf204b0002a53c091702550d216291c007ff4c324.jpg",
+        "img_caption": [],
+        "img_footnote": [
+            "https://chiefmartec.com/2022/05/marketing-technology-landscape-2022-search-9932-solutions-on-martechmap-com/ "
+        ],
+        "page_idx": 20
+    },
+    {
+        "type": "text",
+        "text": "Concerns / About Privacy ",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "The Washington post Democracy Dies in Darkness ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "House, Senate leaders nearing deal on landmark online privacy bill ",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "The expected agreement vaults Congress closer to legislation that lawmakers have sought for decades ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "By Cristiano Lima-Strong ",
+        "text_level": 1,
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "April 5, 2024 at 7:26 p.m. EDT ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "The file consist. identifies her aq ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "Un Friday, two bius were ntroduced n wasnngton n support or a vo Not Track mechanism that would give users control over how much of their data was collected by advertisers and other online companies. ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "By JENNIFER VALENTINO-DEVRIES, JEREMY SINGER-VINE and ASHKAN SOLTANI December 24, 2012 ",
+        "page_idx": 21
+    },
+    {
+        "type": "text",
+        "text": "First and Third Parties ",
+        "text_level": 1,
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "- First-party cookie: belongs to top-level domain. ",
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": ". Third-party cookie: belongs to domain of embedded content (such as image, iframe). ",
+        "page_idx": 22
+    },
+    {
+        "type": "image",
+        "img_path": "images/d84451272dabf541673fce415fab2d7a4be38940a23d2cf1b3da76726ecdafaa.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 22
+    },
+    {
+        "type": "text",
+        "text": "Anonymous Tracking ",
+        "text_level": 1,
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "Trackers included in other sites use third-party cookies containing unique identifiers to create browsing profiles. ",
+        "page_idx": 23
+    },
+    {
+        "type": "image",
+        "img_path": "images/e76f640dab39240b62abd3f5b39d22509e68554929b5bcda74a5ba26f86929d1.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 23
+    },
+    {
+        "type": "text",
+        "text": "Basic Tracking Mechanisms ",
+        "text_level": 1,
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": ". Tracking requires: (1) re-identifying a user. (2) communicating id $+$ visited site back to tracker. ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "Hypertext Transfer Protocol GET /pixel/p-3aud4J6uA4Z6Y.gif?labels=InvisibleBox&busty=2710 HTTP/1.1\\r\\n Host: pixel.quantserve.com\\r\\n Connection: keep-alive\\r\\n Accept: image/webp,\\*/\\*:q=0.8\\r\\n User-Agent: Mozilla/5.0 (Macintosh; Intel Mac 0S X 10_9_2) AppleWebKit/537.36 Referer: http://www. theonion.com/\\r\\n Accept-Encoding: gzip, deflate,sdch\\r\\n Accept-Language: en-Us,en;q=0.8\\r\\n Cookie:mc=52a65386-f1de1-00ade-0b26e;d=ENkBRgGHD4GYEA35MMIL74MKiyDs1A2MQI1Q ",
+        "page_idx": 24
+    },
+    {
+        "type": "text",
+        "text": "Tracking Technologies ",
+        "text_level": 1,
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "HTTP Cookies HTTP Auth HTTP Etags   \nContent cache   \nIE userData HTML5 protocol and conten handlers HTML5 storage   \nFlash cookies   \nSilverlight storage   \nTLS session ID & resume   \nBrowsing history   \nwindow.name   \nHTTP STS   \nDNS cache ",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "\"'Zombie\" cookies that respawn (http://samy.pl/evercookie) ",
+        "page_idx": 25
+    },
+    {
+        "type": "text",
+        "text": "Other Trackers? ",
+        "text_level": 1,
+        "page_idx": 26
+    },
+    {
+        "type": "image",
+        "img_path": "images/776e31eb51f7042cb311be2039b02f11e127469cf1375be896158351f7e3be1c.jpg",
+        "img_caption": [
+            "\"Personal\" Trackers "
+        ],
+        "img_footnote": [],
+        "page_idx": 26
+    },
+    {
+        "type": "image",
+        "img_path": "images/564067ff7ff52f1df27ba8b4d1949740d914512610049ca37e735f2d8f2fb35b.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 26
+    },
+    {
+        "type": "text",
+        "text": "Personal Tracking ",
+        "text_level": 1,
+        "page_idx": 27
+    },
+    {
+        "type": "image",
+        "img_path": "images/ec579ae10e3241e8e61379db24f29a0272f19e068d5a1310b8ae523e9d982411.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": ".Tracking is not anonymous (linked to accounts).   \nUsers directly visit tracker's site > evades some defenses. ",
+        "page_idx": 27
+    },
+    {
+        "type": "text",
+        "text": "1996-2016: More & More Tracking . More trackers of more types, more per site, more coverage ",
+        "text_level": 1,
+        "page_idx": 28
+    },
+    {
+        "type": "image",
+        "img_path": "images/ec217ae2e6a43fa992d939f86aed0e2d303c3ea889c5755861cbcf39c27efe77.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 28
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track? ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "Send a 'Do Not Track' request with your browsing traffic ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track is not a technical defense: trackers must honor the request. ",
+        "page_idx": 29
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track proposal? ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Private browsing mode? ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Private browsing mode doesn't protect against network attackers fully. ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "You've gone incognito ",
+        "text_level": 1,
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Now you can browse privately, and other people who use this device won't see your activity. However, downloads and bookmarks will be saved. Learn more ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Chrome won't save the following information: ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Your activity might still be visible to: ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Your browsing history Cookies and site data Information entered in forms ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Websites you visit Your employer or school Your internet service provider ",
+        "page_idx": 30
+    },
+    {
+        "type": "text",
+        "text": "Defenses to Reduce Tracking ",
+        "text_level": 1,
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "Do Not Track proposal? Private browsing mode? .Third-party cookie blocking? ",
+        "page_idx": 31
+    },
+    {
+        "type": "image",
+        "img_path": "images/ac27386373631b2f913cfc57ba2d1767d2755a4f79c3b4924783c180e0bfa289.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 31
+    },
+    {
+        "type": "text",
+        "text": "3rd party cookies ",
+        "text_level": 1,
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "Chrome... ",
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "'By undermining the business model of many ad-supported websites, blunt approaches to cookies encourage the use of opaque techniques such as fingerprinting (an invasive workaround to replace cookies), which can actually reduce user privacy and control. We believe that we as a community can, and must, do better.\" ",
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "Aug 2022: Remove $3 ^ { \\mathsf { r d } }$ party cookies by 2024 ",
+        "page_idx": 32
+    },
+    {
+        "type": "text",
+        "text": "The state of 3rd party cookies ",
+        "text_level": 1,
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Safari: ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ": Blocks most - https://webkit.org/blog/10218/full-third-party-cookie-blockingand-more/ ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Chrome ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ": No longer removing. https://privacysandbox.com/news/privacy-sandboxnext-steps/ ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Firefox : Specific blocks/etc https://developer.mozilla.org/en-US/blog/goodbye-thirdparty-cookies/ ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": ". Others . Variety of behaviors, wide variation ",
+        "page_idx": 33
+    },
+    {
+        "type": "text",
+        "text": "Cookie ghostwriting ",
+        "text_level": 1,
+        "page_idx": 34
+    },
+    {
+        "type": "text",
+        "text": ": No 3rd party cookies allowed ",
+        "page_idx": 34
+    },
+    {
+        "type": "text",
+        "text": "Instead, <script src=https://trackerdomain/cookiewriter.js/> ",
+        "page_idx": 34
+    },
+    {
+        "type": "text",
+        "text": ". No lIonger in an iframe... what can they do? ",
+        "page_idx": 34
+    },
+    {
+        "type": "text",
+        "text": "Fingerprinting ",
+        "text_level": 1,
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": "An alternative, popular, approach is fingerprinting ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": ": Website runs some javascript to measure browser/machine behavior Generates an ID from this : ID is semi-consistent even across things like incognito mode ",
+        "page_idx": 35
+    },
+    {
+        "type": "text",
+        "text": ". Fingerprinting is unaffected by $3 ^ { \\mathsf { r d } }$ party cookie changes! ",
+        "page_idx": 35
+    }
+]
